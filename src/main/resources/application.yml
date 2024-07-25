@@ -25,3 +25,8 @@ spring:
 secret:
   jwt: ${SECRET_JWT}
 
+message:
+  sender: ${MESSAGE_SENDER}
+  api-key: ${MESSAGE_KEY}
+  api-secret-key: ${MESSAGE_SECRET_KEY}
+  domain: ${MESSAGE_DOMAIN}
