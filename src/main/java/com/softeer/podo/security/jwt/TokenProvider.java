@@ -111,9 +111,6 @@ public class TokenProvider {
         request.setAttribute("name", claimsSet.getClaim("name"));
         request.setAttribute("number", claimsSet.getClaim("number"));
         request.setAttribute("ROLE_", claimsSet.getClaim("ROLE_"));
-        System.out.println("name = " + claimsSet.getClaim("name"));
-        System.out.println("number = " + claimsSet.getClaim("number"));
-        System.out.println("ROLE_ = " + claimsSet.getClaim("ROLE_")); // claimsset에 존재하지 않음
     }
 
     /**
