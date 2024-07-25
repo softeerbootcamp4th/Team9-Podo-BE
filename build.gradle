@@ -24,7 +24,9 @@ repositories {
 }
 
 dependencies {
-    //swagger (spring 3.x버전이라 springfox 적용불가, springdoc 중에서 호환되는 종속성 사용)
+    // sms
+    implementation 'net.nurigo:sdk:4.2.7'
+    // swagger (spring 3.x버전이라 springfox 적용불가, springdoc 중에서 호환되는 종속성 사용)
     implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.2'
     // javax validation
     implementation 'javax.validation:validation-api:2.0.1.Final'

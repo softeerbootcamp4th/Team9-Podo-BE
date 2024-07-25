@@ -1,4 +1,4 @@
-package com.softeer.podo.test.model.dto;
+package com.softeer.podo.verification.model.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,7 +11,7 @@ import javax.validation.constraints.NotBlank;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class TestSignUpRequestDto {
+public class ClaimVerificationRequestDto {
     @NotBlank
     private String name;
     @NotBlank

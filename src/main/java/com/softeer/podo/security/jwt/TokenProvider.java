@@ -7,8 +7,8 @@ import com.nimbusds.jose.crypto.MACSigner;
 import com.nimbusds.jose.crypto.MACVerifier;
 import com.nimbusds.jwt.JWTClaimsSet;
 import com.nimbusds.jwt.SignedJWT;
-import com.softeer.podo.security.jwt.exception.InvalidTokenException;
 import com.softeer.podo.user.model.entity.Role;
+import com.softeer.podo.security.jwt.exception.InvalidTokenException;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
@@ -111,9 +111,6 @@ public class TokenProvider {
         request.setAttribute("name", claimsSet.getClaim("name"));
         request.setAttribute("number", claimsSet.getClaim("number"));
         request.setAttribute("ROLE_", claimsSet.getClaim("ROLE_"));
-        System.out.println("name = " + claimsSet.getClaim("name"));
-        System.out.println("number = " + claimsSet.getClaim("number"));
-        System.out.println("ROLE_ = " + claimsSet.getClaim("ROLE_")); // claimsset에 존재하지 않음
     }
 
     /**
