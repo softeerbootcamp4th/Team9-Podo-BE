@@ -1,6 +1,6 @@
 package com.softeer.podo.security;
 
-import com.softeer.podo.event.model.entity.Role;
+import com.softeer.podo.user.model.entity.Role;
 import com.softeer.podo.security.jwt.exception.InvalidTokenException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.core.MethodParameter;

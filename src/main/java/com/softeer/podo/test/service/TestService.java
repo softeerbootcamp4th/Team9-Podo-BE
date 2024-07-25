@@ -1,6 +1,6 @@
 package com.softeer.podo.test.service;
 
-import com.softeer.podo.event.model.entity.Role;
+import com.softeer.podo.user.model.entity.Role;
 import com.softeer.podo.security.jwt.TokenInfo;
 import com.softeer.podo.security.jwt.TokenProvider;
 import com.softeer.podo.test.model.dto.TestSignUpRequestDto;
