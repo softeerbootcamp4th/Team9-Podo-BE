@@ -21,13 +21,10 @@
         - 선착순 요청 api용 웹서버
     - redis
         - 선착순 인원수 체크를 위한 인메모리 저장소
-
-![Untitled](%E1%84%87%E1%85%A1%E1%86%AF%E1%84%91%E1%85%AD%E1%84%8C%E1%85%A1%E1%84%85%E1%85%AD%20cbb4733670294caa961f6cbe99dd249a/Untitled.png)
+<img width="1176" alt="architecture" src="https://github.com/user-attachments/assets/7b6a596a-e948-4bbc-93d5-43498ffe48cb">
 
 ## ERD
-
-![Untitled](%E1%84%87%E1%85%A1%E1%86%AF%E1%84%91%E1%85%AD%E1%84%8C%E1%85%A1%E1%84%85%E1%85%AD%20cbb4733670294caa961f6cbe99dd249a/Untitled%201.png)
-
+<img width="997" alt="ERD" src="https://github.com/user-attachments/assets/ecf6b95d-6ddd-4369-912e-9286341e17e7">
 ## 발생 가능한 이슈
 
 - 대규모 트래픽으로 인해 redis가 ec2 메모리를 넘어가는 경우
