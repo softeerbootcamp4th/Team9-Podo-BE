@@ -1,7 +1,12 @@
 package com.softeer.podo.event.repository;
 
 import com.softeer.podo.event.model.entity.TestResult;
-import org.springframework.data.repository.CrudRepository;
+import com.softeer.podo.event.util.Result;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface TestResultRepository  extends CrudRepository<TestResult, Long> {
+
+import java.util.Optional;
+
+public interface TestResultRepository  extends JpaRepository<TestResult, Long> {
+    TestResult findByResult(Result result);
 }
