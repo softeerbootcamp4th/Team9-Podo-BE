@@ -21,7 +21,7 @@ public class VerificationController {
     @GetMapping
     @Operation(summary = "전화번호로 인증번호 요청")
     public CommonResponse<String> claimVerificationCode(@Valid @RequestBody ClaimVerificationRequestDto dto) {
-//        verificationFacade.claimVerificationCode(dto);
+        verificationFacade.claimVerificationCode(dto);
         return new CommonResponse<>("인증번호 발송 완료");
     }
 
