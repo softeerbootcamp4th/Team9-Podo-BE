@@ -18,6 +18,16 @@ spring:
         default_batch_fetch_size: 500
         format_sql: true
 
+  data:
+    redis:
+      host: ${REDIS_URL}
+      port: ${REDIS_PORT}
+
+  servlet:
+    multipart:
+      max-file-size: 30MB
+      max-request-size: 30MB
+
   jackson:
     serialization:
       fail-on-empty-beans: false
