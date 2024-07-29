@@ -1,6 +1,7 @@
 package com.softeer.podo.event.model.entity;
 
 
+import com.softeer.podo.event.util.Result;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -18,6 +19,10 @@ public class TestResult {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "result_id")
     private Long id;
+
+    @Enumerated(EnumType.STRING)
+    private Result result;
+
     private String type; // 유형
     private String description; // 유형 설명 문구
     private String subtitle1; //소제목
