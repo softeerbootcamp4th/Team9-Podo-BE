@@ -25,5 +25,6 @@ public class User extends DateEntity {
 
     @Column(name = "phone_number", unique = true)
     private String phoneNum;
+    @Enumerated(EnumType.STRING)
     private Role role;
 }
