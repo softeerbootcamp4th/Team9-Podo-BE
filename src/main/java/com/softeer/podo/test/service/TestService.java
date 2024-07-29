@@ -5,7 +5,7 @@ import com.softeer.podo.security.jwt.TokenInfo;
 import com.softeer.podo.security.jwt.TokenProvider;
 import com.softeer.podo.test.model.dto.TestSignUpRequestDto;
 import com.softeer.podo.test.model.dto.TestSignUpResponseDto;
-import com.softeer.podo.test.repository.TestRepository;
+import com.softeer.podo.test.repository.TestUserRepository;
 import com.softeer.podo.user.model.entity.TestUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -15,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class TestService {
 
-    private final TestRepository testRepository;
+    private final TestUserRepository testRepository;
     private final TokenProvider tokenProvider;
 
     @Transactional
