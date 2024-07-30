@@ -32,4 +32,10 @@ public class TestController {
     public CommonResponse<TestSignUpResponseDto> testSignUp(@Valid @RequestBody TestSignUpRequestDto dto) {
         return new CommonResponse<>(testService.testSignUp(dto));
     }
+
+    @PostMapping("/signUp2")
+    @Operation(summary = "(테스트) Authorization 토큰 테스트용 회원가입 Mock Api")
+    public CommonResponse<TestSignUpResponseDto> testSignUp2(@Valid @RequestBody TestSignUpRequestDto dto) {
+        return new CommonResponse<>(testService.testSignUp(dto));
+    }
 }
