@@ -22,7 +22,15 @@ public enum ErrorCode {
     INVALID_ACCESS_TOKEN_ERROR(false, HttpStatus.BAD_REQUEST.value(), "AccessToken 정보를 찾을 수 없습니다."),
     INVALID_REFRESH_TOKEN_ERROR(false, HttpStatus.BAD_REQUEST.value(), "RefreshToken 정보를 찾을 수 없습니다."),
     USERNAME_EXISTS_ERROR(false, HttpStatus.BAD_REQUEST.value(), "이미 존재하는 닉네임입니다."),
+
+    //event_lots
+    PHONENUM_EXIST_ERROR(false, HttpStatus.BAD_REQUEST.value(),"이미 존재하는 전화번호입니다."),
+    INVALID_SELECTION_ERROR(false, HttpStatus.BAD_REQUEST.value(), "선택지 형식이 잘못되었습니다."),
+    USER_NOT_EXIST_ERROR(false, HttpStatus.BAD_REQUEST.value(), "해당 사용자가 아직 이벤트에 응모하지 않았습니다."),
+    EXISTING_COMMENT_ERROR(false, HttpStatus.BAD_REQUEST.value(),"이미 기대평을 작성했습니다."),
     ;
+
+
 
     private Boolean isSuccess;
     private int code;
