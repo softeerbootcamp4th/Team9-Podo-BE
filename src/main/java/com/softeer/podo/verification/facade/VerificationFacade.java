@@ -10,9 +10,11 @@ import com.softeer.podo.verification.model.dto.ClaimVerificationRequestDto;
 import com.softeer.podo.verification.service.MessageService;
 import com.softeer.podo.verification.service.VerificationService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+@Slf4j
 @Component
 @RequiredArgsConstructor
 public class VerificationFacade {
@@ -23,13 +25,15 @@ public class VerificationFacade {
 
     @Transactional(readOnly = true)
     public void claimVerificationCode(ClaimVerificationRequestDto dto) {
-        String createdCode = verificationService.createAndSaveCode();
-        messageService.sendVerificationMessage(dto.getPhoneNum(), createdCode);
+        // TODO("전화번호 중복 여부를 체크한다")
+        String createdCode = verificationService.createAndSaveCode(dto.getName(), dto.getPhoneNum());
+//        messageService.sendVerificationMessage(dto.getPhoneNum(), createdCode);
+        log.info("created code for {} = {}", dto.getName(), createdCode);
     }
 
     @Transactional(readOnly = true)
     public CheckVerificationResponseDto checkVerification(CheckVerificationRequestDto dto) {
-        if(verificationService.getAuthInfo(dto)) {
+        if(verificationService.getAuthInfo(dto.getName(), dto.getPhoneNum(), dto.getVerificationCode())) {
             TokenInfo token = tokenProvider.createAccessToken(dto.getName(), dto.getName(), Role.ROLE_USER);
             return new CheckVerificationResponseDto(
                     token.getToken(), token.getExpireTime()

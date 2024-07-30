@@ -25,7 +25,7 @@ import java.util.Date;
 @Component
 public class TokenProvider {
 
-    private final long ACCESS_TOKEN_VALID_TIME = (1000*60*60*24); //day
+    private final long ACCESS_TOKEN_VALID_TIME = (1000*60*60); //hour
     private final long REFRESH_TOKEN_VALID_TIME = (1000*60*60*24*7); //week
     private final String BEARER_TYPE = "Bearer ";
 

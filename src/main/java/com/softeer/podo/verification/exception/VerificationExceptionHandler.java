@@ -24,6 +24,6 @@ public class VerificationExceptionHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public CommonResponse<?> tokenNotMatchException(TokenNotMatchException e, HttpServletRequest request) {
         log.warn("VERIFICATION-002> 요청 URI: " + request.getRequestURI() + ", 에러 메세지: " + e.getMessage());
-        return new CommonResponse<>(ErrorCode.INVALID_TOKEN_ERROR);
+        return new CommonResponse<>(ErrorCode.INVALID_VERIFICATION_TOKEN_ERROR);
     }
 }

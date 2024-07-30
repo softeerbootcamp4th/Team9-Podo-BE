@@ -13,6 +13,10 @@ java {
 	}
 }
 
+jar {
+    enabled = false
+}
+
 configurations {
 	compileOnly {
 		extendsFrom annotationProcessor
@@ -24,6 +28,8 @@ repositories {
 }
 
 dependencies {
+    //redis
+    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
     // sms
     implementation 'net.nurigo:sdk:4.2.7'
     // swagger (spring 3.x버전이라 springfox 적용불가, springdoc 중에서 호환되는 종속성 사용)
