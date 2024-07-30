@@ -27,4 +27,11 @@ public class EventExceptionHandler {
         log.warn("LOTSAPPLICATION-002> 요청 URI: " + request.getRequestURI() + ", 에러 메세지: " + e.getMessage());
         return new CommonResponse<>(ErrorCode.INVALID_SELECTION_ERROR);
     }
+
+    @ExceptionHandler(UserNotExistException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public CommonResponse<?> userNotExistException(InvalidSelectionException e,  HttpServletRequest request) {
+        log.warn("LOTSAPPLICATION-003> 요청 URI: " + request.getRequestURI() + ", 에러 메세지: " + e.getMessage());
+        return new CommonResponse<>(ErrorCode.USER_NOT_EXIST_ERROR);
+    }
 }
