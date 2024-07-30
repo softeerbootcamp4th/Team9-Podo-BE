@@ -18,9 +18,9 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class EventLotsService {
-    UserRepository userRepository;
-    SelectionMap selectionMap;
-    TestResultRepository testResultRepository;
+    private final UserRepository userRepository;
+    private final SelectionMap selectionMap;
+    private final TestResultRepository testResultRepository;
 
 
     /**
