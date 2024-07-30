@@ -1,0 +1,25 @@
+# 배포 파일 설정
+version: 0.0
+os: linux
+
+files:
+  - source: /
+    destination: /home/ubuntu/lots
+    overwrite: yes
+
+permissions:
+  - object: /
+    pattern: "**"
+    owner: ubuntu
+    group: ubuntu
+
+# 배포 전후 실행 스크립트 지정
+hooks:
+  AfterInstall:
+    - location: script/stop.sh
+      timeout: 60
+      runas: ubuntu
+  ApplicationStart:
+    - location: script/start.sh
+      timeout: 60
+      runas: ubuntu
