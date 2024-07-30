@@ -4,6 +4,8 @@ package com.softeer.podo.event.controller;
 import com.softeer.podo.common.response.CommonResponse;
 import com.softeer.podo.event.model.dto.LotsApplicationRequestDto;
 import com.softeer.podo.event.model.dto.LotsApplicationResponseDto;
+import com.softeer.podo.event.model.dto.LotsCommentRequestDto;
+import com.softeer.podo.event.model.dto.LotsCommentResponseDto;
 import com.softeer.podo.event.service.EventLotsService;
 import com.softeer.podo.security.Auth;
 import com.softeer.podo.security.AuthInfo;
@@ -26,5 +28,12 @@ public class EventLotsController {
     public CommonResponse<LotsApplicationResponseDto> eventApplication(@Auth AuthInfo authInfo,
                                                                        @Valid @RequestBody  LotsApplicationRequestDto dto) {
         return new CommonResponse<>(eventLotsService.application(authInfo, dto));
+    }
+
+    @PostMapping("/comment")
+    @Operation(summary = "랜덤추천이벤트 기대평 등록용 Api")
+    public CommonResponse<LotsCommentResponseDto> eventComment(@Auth AuthInfo authInfo,
+                                                               @Valid @RequestBody LotsCommentRequestDto dto) {
+        return new CommonResponse<>(eventLotsService.comment(authInfo, dto));
     }
 }

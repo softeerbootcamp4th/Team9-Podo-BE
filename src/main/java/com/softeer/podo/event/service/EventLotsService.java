@@ -5,6 +5,9 @@ import com.softeer.podo.event.exception.ExistingUserException;
 import com.softeer.podo.event.exception.InvalidSelectionException;
 import com.softeer.podo.event.model.dto.LotsApplicationRequestDto;
 import com.softeer.podo.event.model.dto.LotsApplicationResponseDto;
+import com.softeer.podo.event.model.dto.LotsCommentRequestDto;
+import com.softeer.podo.event.model.dto.LotsCommentResponseDto;
+import com.softeer.podo.event.model.entity.LotsComment;
 import com.softeer.podo.event.model.entity.TestResult;
 import com.softeer.podo.event.repository.TestResultRepository;
 import com.softeer.podo.event.util.Result;
@@ -51,5 +54,32 @@ public class EventLotsService {
         return new LotsApplicationResponseDto(
             testResult
         );
+    }
+
+    /**
+     * 랜덤추천 이벤트 응모자의 기대평을 등록
+     * @param authInfo 사용자 정보
+     * @param dto 기대평 내용
+     * @return 등록결과
+     */
+    public LotsCommentResponseDto comment(AuthInfo authInfo, LotsCommentRequestDto dto)  {
+        //사용자가 이벤트에 아직 응모하지 않았을때
+        if(!userRepository.existsByphoneNum(authInfo.getPhoneNum())){
+            throw new ExistingUserException("해당 사용자가 아직 이벤트에 응모하지 않았습니다.");
+        }
+
+
+
+        // 여기에 comment 내용 체크용 로직 구현
+
+
+        User user = userRepository.findByNameAndPhoneNum(authInfo.getName(), authInfo.getPhoneNum());
+        LotsComment comment = LotsComment.builder()
+                .user(user)
+                .comment(dto.getComment())
+                .build();
+
+
+        return new LotsCommentResponseDto(comment);
     }
 }
