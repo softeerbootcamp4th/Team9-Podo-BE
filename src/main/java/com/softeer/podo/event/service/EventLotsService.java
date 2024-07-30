@@ -3,7 +3,6 @@ package com.softeer.podo.event.service;
 
 import com.softeer.podo.event.exception.ExistingCommentException;
 import com.softeer.podo.event.exception.ExistingUserException;
-import com.softeer.podo.event.exception.InvalidSelectionException;
 import com.softeer.podo.event.exception.UserNotExistException;
 import com.softeer.podo.event.model.dto.LotsApplicationRequestDto;
 import com.softeer.podo.event.model.dto.LotsApplicationResponseDto;
@@ -38,7 +37,7 @@ public class EventLotsService {
      * @return 유형테스트 결과
      */
     @Transactional
-    public LotsApplicationResponseDto application(AuthInfo authInfo, LotsApplicationRequestDto dto)  {
+    public LotsApplicationResponseDto applyArrivalEvent(AuthInfo authInfo, LotsApplicationRequestDto dto)  {
 
         if(userRepository.existsByphoneNum(authInfo.getPhoneNum())){
             throw new ExistingUserException("이미 존재하는 전화번호입니다.");
