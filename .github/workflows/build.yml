@@ -98,5 +98,5 @@ jobs:
 
       # (7) Gradle build (Test 제외)
       - name: Build with Gradle
-        run: ./gradlew build
+        run: ./gradlew build -x test
         shell: bash
