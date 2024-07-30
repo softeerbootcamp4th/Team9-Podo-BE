@@ -18,7 +18,7 @@ public class EventExceptionHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public CommonResponse<?> existingPhoneNumbException(ExistingUserException e,  HttpServletRequest request) {
         log.warn("LOTSAPPLICATION-001> 요청 URI: " + request.getRequestURI() + ", 에러 메세지: " + e.getMessage());
-        return new CommonResponse<>(ErrorCode.PHONENUM_EXSIST_ERROR);
+        return new CommonResponse<>(ErrorCode.PHONENUM_EXIST_ERROR);
     }
 
     @ExceptionHandler(InvalidSelectionException.class)
