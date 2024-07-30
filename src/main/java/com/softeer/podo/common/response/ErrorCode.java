@@ -27,6 +27,7 @@ public enum ErrorCode {
     PHONENUM_EXSIST_ERROR(false, HttpStatus.BAD_REQUEST.value(),"이미 존재하는 전화번호입니다."),
     INVALID_SELECTION_ERROR(false, HttpStatus.BAD_REQUEST.value(), "선택지 형식이 잘못되었습니다."),
     USER_NOT_EXIST_ERROR(false, HttpStatus.BAD_REQUEST.value(), "해당 사용자가 아직 이벤트에 응모하지 않았습니다."),
+    EXISTING_COMMENT_ERROR(false, HttpStatus.BAD_REQUEST.value(),"이미 기대평을 작성했습니다."),
     ;
 
 

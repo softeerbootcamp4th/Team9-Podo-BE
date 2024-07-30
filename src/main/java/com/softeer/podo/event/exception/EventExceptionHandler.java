@@ -30,8 +30,15 @@ public class EventExceptionHandler {
 
     @ExceptionHandler(UserNotExistException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public CommonResponse<?> userNotExistException(InvalidSelectionException e,  HttpServletRequest request) {
+    public CommonResponse<?> userNotExistException(UserNotExistException e,  HttpServletRequest request) {
         log.warn("LOTSAPPLICATION-003> 요청 URI: " + request.getRequestURI() + ", 에러 메세지: " + e.getMessage());
         return new CommonResponse<>(ErrorCode.USER_NOT_EXIST_ERROR);
+    }
+
+    @ExceptionHandler(ExistingCommentException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public CommonResponse<?> existingCommentException(ExistingCommentException e,  HttpServletRequest request) {
+        log.warn("LOTSAPPLICATION-004> 요청 URI: " + request.getRequestURI() + ", 에러 메세지: " + e.getMessage());
+        return new CommonResponse<>(ErrorCode.EXISTING_COMMENT_ERROR);
     }
 }

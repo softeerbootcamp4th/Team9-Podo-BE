@@ -1,14 +1,17 @@
 package com.softeer.podo.event.service;
 
 
+import com.softeer.podo.event.exception.ExistingCommentException;
 import com.softeer.podo.event.exception.ExistingUserException;
 import com.softeer.podo.event.exception.InvalidSelectionException;
+import com.softeer.podo.event.exception.UserNotExistException;
 import com.softeer.podo.event.model.dto.LotsApplicationRequestDto;
 import com.softeer.podo.event.model.dto.LotsApplicationResponseDto;
 import com.softeer.podo.event.model.dto.LotsCommentRequestDto;
 import com.softeer.podo.event.model.dto.LotsCommentResponseDto;
 import com.softeer.podo.event.model.entity.LotsComment;
 import com.softeer.podo.event.model.entity.TestResult;
+import com.softeer.podo.event.repository.LotsCommentRepository;
 import com.softeer.podo.event.repository.TestResultRepository;
 import com.softeer.podo.event.util.Result;
 import com.softeer.podo.event.util.SelectionMap;
@@ -24,6 +27,7 @@ public class EventLotsService {
     private final UserRepository userRepository;
     private final SelectionMap selectionMap;
     private final TestResultRepository testResultRepository;
+    private final LotsCommentRepository lotsCommentRepository;
 
 
     /**
@@ -65,19 +69,23 @@ public class EventLotsService {
     public LotsCommentResponseDto comment(AuthInfo authInfo, LotsCommentRequestDto dto)  {
         //사용자가 이벤트에 아직 응모하지 않았을때
         if(!userRepository.existsByphoneNum(authInfo.getPhoneNum())){
-            throw new ExistingUserException("해당 사용자가 아직 이벤트에 응모하지 않았습니다.");
+            throw new UserNotExistException("해당 사용자가 아직 이벤트에 응모하지 않았습니다.");
         }
-
-
 
         // 여기에 comment 내용 체크용 로직 구현
 
-
         User user = userRepository.findByNameAndPhoneNum(authInfo.getName(), authInfo.getPhoneNum());
+
+        //이미 comment가 존재할때
+        if(lotsCommentRepository.existsByUser(user)){
+            throw new ExistingCommentException("이미 기대평을 작성했습니다.");
+        }
+
         LotsComment comment = LotsComment.builder()
                 .user(user)
                 .comment(dto.getComment())
                 .build();
+        lotsCommentRepository.save(comment);
 
 
         return new LotsCommentResponseDto(comment);
