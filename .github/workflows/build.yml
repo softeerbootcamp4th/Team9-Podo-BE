@@ -76,7 +76,11 @@ jobs:
         run: chmod +x gradlew
         shell: bash
 
-      # (4) Mysql 세팅 대기
+      # (4) Redis 설치
+      - name: Install redis-cli
+        run: sudo apt-get update && sudo apt-get install -y redis-tools
+
+      # (5) Mysql 세팅 대기
       - name: Wait for MySQL
         run: |
           until mysqladmin ping -h ${{ env.MYSQL_HOST }} --silent; do
@@ -84,7 +88,7 @@ jobs:
             sleep 5
           done
 
-      # (5) Redis 세팅 대기
+      # (6) Redis 세팅 대기
       - name: Wait for Redis
         run: |
           until redis-cli -h ${{ env.REDIS_HOST }} ping; do
@@ -92,7 +96,7 @@ jobs:
             sleep 5
           done
 
-      # (6) Gradle build (Test 제외)
+      # (7) Gradle build (Test 제외)
       - name: Build with Gradle
         run: ./gradlew build
         shell: bash
