@@ -1,4 +1,4 @@
-package com.softeer.podo.comment.model.entity;
+package com.softeer.podo.event.model.entity;
 
 
 import com.softeer.podo.user.model.entity.User;
@@ -11,7 +11,7 @@ import lombok.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Comment {
+public class LotsComment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "comment_id")

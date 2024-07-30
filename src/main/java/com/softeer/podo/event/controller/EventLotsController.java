@@ -1,7 +1,6 @@
 package com.softeer.podo.event.controller;
 
 
-import com.softeer.podo.comment.model.entity.Comment;
 import com.softeer.podo.common.response.CommonResponse;
 import com.softeer.podo.event.model.dto.LotsApplicationRequestDto;
 import com.softeer.podo.event.model.dto.LotsApplicationResponseDto;
