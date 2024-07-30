@@ -10,6 +10,10 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
+permissions:
+  contents: read
+  id-token: write
+
 # Setting environment values
 env:
   # AWS 관련 환경변수
