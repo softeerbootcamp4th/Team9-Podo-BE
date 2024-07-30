@@ -18,6 +18,7 @@ import com.softeer.podo.event.util.SelectionMap;
 import com.softeer.podo.security.AuthInfo;
 import com.softeer.podo.user.model.entity.User;
 import com.softeer.podo.user.repository.UserRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -36,6 +37,7 @@ public class EventLotsService {
      * @param dto 선택지 정보
      * @return 유형테스트 결과
      */
+    @Transactional
     public LotsApplicationResponseDto application(AuthInfo authInfo, LotsApplicationRequestDto dto)  {
 
         if(userRepository.existsByphoneNum(authInfo.getPhoneNum())){
@@ -54,10 +56,20 @@ public class EventLotsService {
         userRepository.save(user);
 
         TestResult testResult = testResultRepository.findByResult(result);
-
-        return new LotsApplicationResponseDto(
-            testResult
-        );
+        return LotsApplicationResponseDto.builder()
+                .result(testResult.getResult())
+                .type(testResult.getType())
+                .description(testResult.getDescription())
+                .subtitle1(testResult.getSubtitle1())
+                .subtitle2(testResult.getSubtitle2())
+                .subtitle3(testResult.getSubtitle3())
+                .senario1(testResult.getSenario1())
+                .senario2(testResult.getSenario2())
+                .senario3(testResult.getSenario3())
+                .image1(testResult.getImage1())
+                .image2(testResult.getImage2())
+                .image3(testResult.getImage3())
+                .build();
     }
 
     /**
@@ -66,6 +78,7 @@ public class EventLotsService {
      * @param dto 기대평 내용
      * @return 등록결과
      */
+    @Transactional
     public LotsCommentResponseDto comment(AuthInfo authInfo, LotsCommentRequestDto dto)  {
         //사용자가 이벤트에 아직 응모하지 않았을때
         if(!userRepository.existsByphoneNum(authInfo.getPhoneNum())){
