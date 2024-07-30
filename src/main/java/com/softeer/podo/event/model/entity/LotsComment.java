@@ -1,6 +1,7 @@
 package com.softeer.podo.event.model.entity;
 
 
+import com.softeer.podo.common.entity.DateEntity;
 import com.softeer.podo.user.model.entity.User;
 import jakarta.persistence.*;
 import lombok.*;
@@ -11,7 +12,7 @@ import lombok.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class LotsComment {
+public class LotsComment extends DateEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "comment_id")
