@@ -47,7 +47,6 @@ public class TokenProvider {
     private TokenInfo createEncryptedToken(String name, String number, Role role, long validTime) {
         Date now = new Date();
         Date expiration = new Date(now.getTime()+validTime);
-        System.out.println("baseSecretKey = " + baseSecretKey);
         byte[] secretKey = getSecretKey();
 
         try {
