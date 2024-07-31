@@ -3,6 +3,7 @@ package com.softeer.podo.verification.facade;
 import com.softeer.podo.security.jwt.TokenInfo;
 import com.softeer.podo.security.jwt.TokenProvider;
 import com.softeer.podo.user.model.dto.UserDto;
+import com.softeer.podo.user.model.entity.Role;
 import com.softeer.podo.user.service.UserService;
 import com.softeer.podo.verification.exception.DuplicatePhoneNumException;
 import com.softeer.podo.verification.exception.TokenNotMatchException;
@@ -28,9 +29,6 @@ public class VerificationFacade {
 
     @Transactional
     public void claimVerificationCode(ClaimVerificationRequestDto dto) {
-        if(userService.checkUserAlreadyExists(dto.getPhoneNum())) {
-            throw new DuplicatePhoneNumException("이미 응모한 전화번호입니다.");
-        }
         String createdCode = verificationService.createAndSaveCode(dto.getName(), dto.getPhoneNum());
 //        messageService.sendVerificationMessage(dto.getPhoneNum(), createdCode);
         log.info("created code for {} = {}", dto.getName(), createdCode);
@@ -38,12 +36,8 @@ public class VerificationFacade {
 
     @Transactional
     public CheckVerificationResponseDto checkVerification(CheckVerificationRequestDto dto) {
-        if(userService.checkUserAlreadyExists(dto.getPhoneNum())) {
-            throw new DuplicatePhoneNumException("이미 응모한 전화번호입니다.");
-        }
         if(verificationService.getAuthInfo(dto.getName(), dto.getPhoneNum(), dto.getVerificationCode())) {
-            UserDto savedUser = userService.saveUser(dto.getName(), dto.getPhoneNum());
-            TokenInfo token = tokenProvider.createAccessToken(savedUser.getName(), savedUser.getPhoneNum(), savedUser.getRole());
+            TokenInfo token = tokenProvider.createAccessToken(dto.getName(), dto.getPhoneNum(), Role.ROLE_USER);
 
             return new CheckVerificationResponseDto(
                     token.getToken(), token.getExpireTime()
