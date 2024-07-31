@@ -39,7 +39,7 @@ public class EventLotsService {
     @Transactional
     public LotsApplicationResponseDto applyArrivalEvent(AuthInfo authInfo, LotsApplicationRequestDto dto)  {
 
-        if(userRepository.existsByphoneNum(authInfo.getPhoneNum())){
+        if(userRepository.existsByPhoneNum(authInfo.getPhoneNum())){
             throw new ExistingUserException("이미 존재하는 전화번호입니다.");
         }
 
@@ -80,7 +80,7 @@ public class EventLotsService {
     @Transactional
     public LotsCommentResponseDto comment(AuthInfo authInfo, LotsCommentRequestDto dto)  {
         //사용자가 이벤트에 아직 응모하지 않았을때
-        if(!userRepository.existsByphoneNum(authInfo.getPhoneNum())){
+        if(!userRepository.existsByPhoneNum(authInfo.getPhoneNum())){
             throw new UserNotExistException("해당 사용자가 아직 이벤트에 응모하지 않았습니다.");
         }
 

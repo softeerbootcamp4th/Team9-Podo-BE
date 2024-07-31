@@ -26,4 +26,11 @@ public class VerificationExceptionHandler {
         log.warn("VERIFICATION-002> 요청 URI: " + request.getRequestURI() + ", 에러 메세지: " + e.getMessage());
         return new CommonResponse<>(ErrorCode.INVALID_VERIFICATION_TOKEN_ERROR);
     }
+
+    @ExceptionHandler(DuplicatePhoneNumException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public CommonResponse<?> duplicatePhoneNumException(DuplicatePhoneNumException e, HttpServletRequest request) {
+        log.warn("VERIFICATION-003> 요청 URI: " + request.getRequestURI() + ", 에러 메세지: " + e.getMessage());
+        return new CommonResponse<>(ErrorCode.DUPLICATE_PHONENUM_ERROR);
+    }
 }
