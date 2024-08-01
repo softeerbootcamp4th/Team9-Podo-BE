@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class User extends DateEntity {
+public class LotsUser extends DateEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
