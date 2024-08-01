@@ -25,7 +25,7 @@ public class EventWeight extends DateEntity {
     @Column(name = "weight_condition")
     private String weightCondition;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name =  "event_id")
     private Event event;
 }
