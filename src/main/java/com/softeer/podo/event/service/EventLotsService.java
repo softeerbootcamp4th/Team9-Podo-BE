@@ -89,7 +89,7 @@ public class EventLotsService {
         LotsUser lotsUser = lotsUserRepository.findByNameAndPhoneNum(authInfo.getName(), authInfo.getPhoneNum());
 
         //이미 comment가 존재할때
-        if(lotsCommentRepository.existsByUser(lotsUser)){
+        if(lotsCommentRepository.existsByLotsUser(lotsUser)){
             throw new ExistingCommentException("이미 기대평을 작성했습니다.");
         }
 
