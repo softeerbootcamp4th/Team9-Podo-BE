@@ -59,15 +59,9 @@ public class EventLotsService {
                 .result(testResult.getResult())
                 .type(testResult.getType())
                 .description(testResult.getDescription())
-                .subtitle1(testResult.getSubtitle1())
-                .subtitle2(testResult.getSubtitle2())
-                .subtitle3(testResult.getSubtitle3())
-                .senario1(testResult.getSenario1())
-                .senario2(testResult.getSenario2())
-                .senario3(testResult.getSenario3())
-                .image1(testResult.getImage1())
-                .image2(testResult.getImage2())
-                .image3(testResult.getImage3())
+                .addSenario(testResult.getSenario1(), testResult.getSubtitle1(), testResult.getImage1())
+                .addSenario(testResult.getSenario2(), testResult.getSubtitle2(), testResult.getImage2())
+                .addSenario(testResult.getSenario3(), testResult.getSubtitle3(), testResult.getImage3())
                 .build();
     }
 

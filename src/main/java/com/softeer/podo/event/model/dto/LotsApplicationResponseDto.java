@@ -8,6 +8,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -17,13 +20,22 @@ public class LotsApplicationResponseDto {
 
     private String type; // 유형
     private String description; // 유형 설명 문구
-    private String subtitle1; //소제목
-    private String subtitle2;
-    private String subtitle3;
-    private String senario1; // 시나리오
-    private String senario2;
-    private String senario3;
-    private String image1; // 이미지 s3 링크
-    private String image2;
-    private String image3;
+    private ArrayList<Senario> senarioList;
+
+
+    public static class LotsApplicationResponseDtoBuilder {
+        public LotsApplicationResponseDtoBuilder addSenario(String title, String subtitle, String image) {
+            if(this.senarioList == null) {this.senarioList = new ArrayList<Senario>();}
+            this.senarioList.add(new Senario(title, subtitle, image));
+            return this;
+        }
+    }
+
+    @Data
+    @AllArgsConstructor
+    private static class Senario{
+        private String title;
+        private String subtitle;
+        private String image;
+    }
 }
