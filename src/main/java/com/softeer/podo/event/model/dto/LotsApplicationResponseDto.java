@@ -19,14 +19,5 @@ public class LotsApplicationResponseDto {
 
     private String type; // 유형
     private String description; // 유형 설명 문구
-    private ArrayList<Senario> senarioList;
-
-
-    @Data
-    @AllArgsConstructor
-    public static class Senario{
-        private String title;
-        private String subtitle;
-        private String image;
-    }
+    private ArrayList<SenarioDto> senarioList;
 }

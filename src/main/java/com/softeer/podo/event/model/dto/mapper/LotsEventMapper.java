@@ -1,6 +1,7 @@
 package com.softeer.podo.event.model.dto.mapper;
 
 import com.softeer.podo.event.model.dto.LotsApplicationResponseDto;
+import com.softeer.podo.event.model.dto.SenarioDto;
 import com.softeer.podo.event.model.entity.TestResult;
 import org.springframework.stereotype.Component;
 
@@ -15,10 +16,10 @@ public class LotsEventMapper {
 		dto.setDescription(testResult.getDescription());
 		dto.setType(testResult.getType());
 
-		ArrayList<LotsApplicationResponseDto.Senario> senarioArrayList =  new ArrayList<>();
-		senarioArrayList.add( new LotsApplicationResponseDto.Senario(testResult.getSenario1(), testResult.getSubtitle1(), testResult.getImage1()));
-		senarioArrayList.add( new LotsApplicationResponseDto.Senario(testResult.getSenario2(), testResult.getSubtitle2(), testResult.getImage2()));
-		senarioArrayList.add( new LotsApplicationResponseDto.Senario(testResult.getSenario2(), testResult.getSubtitle2(), testResult.getImage2()));
+		ArrayList<SenarioDto> senarioArrayList =  new ArrayList<>();
+		senarioArrayList.add( new SenarioDto(testResult.getSenario1(), testResult.getSubtitle1(), testResult.getImage1()));
+		senarioArrayList.add( new SenarioDto(testResult.getSenario2(), testResult.getSubtitle2(), testResult.getImage2()));
+		senarioArrayList.add( new SenarioDto(testResult.getSenario3(), testResult.getSubtitle3(), testResult.getImage3()));
 		dto.setSenarioList(senarioArrayList);
 		return dto;
 	}
