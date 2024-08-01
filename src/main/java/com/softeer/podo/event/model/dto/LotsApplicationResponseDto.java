@@ -14,7 +14,6 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
 public class LotsApplicationResponseDto {
     private Result result;
 
@@ -23,17 +22,9 @@ public class LotsApplicationResponseDto {
     private ArrayList<Senario> senarioList;
 
 
-    public static class LotsApplicationResponseDtoBuilder {
-        public LotsApplicationResponseDtoBuilder addSenario(String title, String subtitle, String image) {
-            if(this.senarioList == null) {this.senarioList = new ArrayList<Senario>();}
-            this.senarioList.add(new Senario(title, subtitle, image));
-            return this;
-        }
-    }
-
     @Data
     @AllArgsConstructor
-    private static class Senario{
+    public static class Senario{
         private String title;
         private String subtitle;
         private String image;
