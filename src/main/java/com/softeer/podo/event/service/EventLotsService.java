@@ -8,6 +8,7 @@ import com.softeer.podo.event.model.dto.LotsApplicationRequestDto;
 import com.softeer.podo.event.model.dto.LotsApplicationResponseDto;
 import com.softeer.podo.event.model.dto.LotsCommentRequestDto;
 import com.softeer.podo.event.model.dto.LotsCommentResponseDto;
+import com.softeer.podo.event.model.dto.mapper.LotsEventMapper;
 import com.softeer.podo.event.model.entity.LotsComment;
 import com.softeer.podo.event.model.entity.TestResult;
 import com.softeer.podo.event.repository.LotsCommentRepository;
@@ -29,6 +30,7 @@ public class EventLotsService {
     private final TestResultRepository testResultRepository;
     private final LotsCommentRepository lotsCommentRepository;
 
+    private final LotsEventMapper lotsEventMapper;
 
     /**
      * 랜덤추천 이벤트 응모 api
@@ -55,20 +57,7 @@ public class EventLotsService {
         userRepository.save(user);
 
         TestResult testResult = testResultRepository.findByResult(result);
-        return LotsApplicationResponseDto.builder()
-                .result(testResult.getResult())
-                .type(testResult.getType())
-                .description(testResult.getDescription())
-                .subtitle1(testResult.getSubtitle1())
-                .subtitle2(testResult.getSubtitle2())
-                .subtitle3(testResult.getSubtitle3())
-                .senario1(testResult.getSenario1())
-                .senario2(testResult.getSenario2())
-                .senario3(testResult.getSenario3())
-                .image1(testResult.getImage1())
-                .image2(testResult.getImage2())
-                .image3(testResult.getImage3())
-                .build();
+        return lotsEventMapper.TestResultToApplicationDto(testResult);
     }
 
     /**
