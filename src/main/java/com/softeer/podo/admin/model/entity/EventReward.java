@@ -28,7 +28,7 @@ public class EventReward extends DateEntity {
     private int numWinners;
     private String reward;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "event_id")
     private Event event;
 }

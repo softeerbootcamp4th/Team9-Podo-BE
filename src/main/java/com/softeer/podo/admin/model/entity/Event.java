@@ -10,6 +10,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "events")
@@ -23,7 +24,7 @@ public class Event extends DateEntity {
     @Column(name = "event_id")
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "type_id")
     private EventType eventType;
 
@@ -48,4 +49,10 @@ public class Event extends DateEntity {
 
     @Column(name = "tag_image")
     private String tagImage;
+
+    @OneToMany(mappedBy = "event" , orphanRemoval = true, cascade = CascadeType.ALL)
+    private List<EventReward> eventRewardList;
+
+    @OneToOne(mappedBy = "event" , orphanRemoval = true, cascade = CascadeType.ALL)
+    private EventWeight eventWeight;
 }
