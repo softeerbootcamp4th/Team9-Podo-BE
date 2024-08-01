@@ -43,6 +43,8 @@ public class AdminMapper {
 							.tagImage(event.getTagImage())
 							.eventRewardList(eventRewardDtoList)
 							.eventWeight(
+									(event.getEventWeight() == null)?
+											null :
 									new EventWeightDto(
 											event.getEventWeight().getTimes(),
 											event.getEventWeight().getWeightCondition()
