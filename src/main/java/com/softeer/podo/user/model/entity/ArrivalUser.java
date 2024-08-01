@@ -23,7 +23,8 @@ public class ArrivalUser {
 
 	@Column(name = "phone_number", unique = true)
 	private String phoneNum;
-	private int rank;
+	@Column(name = "arrival_rank")
+	private int arrivalRank;
 	@Enumerated(EnumType.STRING)
 	private Role role;
 }
