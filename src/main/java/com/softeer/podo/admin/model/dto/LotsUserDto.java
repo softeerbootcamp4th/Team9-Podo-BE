@@ -1,7 +1,7 @@
 package com.softeer.podo.admin.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import kotlinx.datetime.LocalDateTime;
+import java.time.LocalDateTime;
 import lombok.Builder;
 import lombok.Data;
 
