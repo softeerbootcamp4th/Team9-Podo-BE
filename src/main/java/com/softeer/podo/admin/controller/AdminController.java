@@ -33,6 +33,12 @@ public class AdminController {
 		return new CommonResponse<>(adminService.configArrivalEvent(dto));
 	}
 
+	@PostMapping("/lots/config")
+	@Operation(summary = "랜덤추첨 이벤트 수정 Api")
+	public CommonResponse<EventDto> lotsEventConfig( @RequestBody EventConfigRequestDto dto){
+		return new CommonResponse<>(adminService.configLotsEvent(dto));
+	}
+
 	@GetMapping("/arrival/applicationList")
 	@Operation(summary = "선착순 응모 인원 반환 Api")
 	public CommonResponse<ArrivalUserListDto> arrivalApplicationList(){

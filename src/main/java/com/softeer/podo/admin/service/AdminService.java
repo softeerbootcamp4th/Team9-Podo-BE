@@ -58,6 +58,26 @@ public class AdminService {
 	}
 
 	@Transactional
+	public EventDto configLotsEvent(EventConfigRequestDto dto) {
+		Optional<Event> optionalLotslEvent = eventRepository.findById(2L);
+		if(optionalLotslEvent.isEmpty()){
+			throw new EventNotFoundException();
+		}
+		Event lotsEvent = optionalLotslEvent.get();
+
+		lotsEvent.setTitle(dto.getTitle());
+		lotsEvent.setDescription(dto.getDescription());
+		lotsEvent.setRepeatDay(dto.getRepeatDay());
+		lotsEvent.setRepeatTime(dto.getRepeatTime());
+		lotsEvent.setStartAt(dto.getStartAt());
+		lotsEvent.setEndAt(dto.getEndAt());
+		lotsEvent.setTagImage(dto.getTagImage());
+
+		eventRepository.save(lotsEvent);
+		return adminMapper.EventToEventDto(lotsEvent);
+	}
+
+	@Transactional
 	public ArrivalUserListDto getArrivalApplicationList() {
 		ArrivalUserListDto arrivalUserListDto = userMapper.ArrivalUserListToArrivalUserListDto(arrivalUserRepository.findAll());
 		//선착순 이벤트 id
