@@ -1,5 +1,6 @@
 package com.softeer.podo.admin.controller;
 
+import com.softeer.podo.admin.model.dto.ArrivalUserListDto;
 import com.softeer.podo.admin.model.dto.EventListResponseDto;
 import com.softeer.podo.admin.service.AdminService;
 import com.softeer.podo.common.response.CommonResponse;
@@ -22,6 +23,12 @@ public class AdminController {
 	@Operation(summary = "이벤트 목록 반환 Api")
 	public CommonResponse<EventListResponseDto> eventList(){
 		return new CommonResponse<>(adminService.getEventList());
+	}
+
+	@GetMapping("/arrival/applicationList")
+	@Operation(summary = "선착순 응모 인원 반환 Api")
+	public CommonResponse<ArrivalUserListDto> arrivalApplicationList(){
+		return new CommonResponse<>(adminService.getArrivalApplicationList());
 	}
 
 }
