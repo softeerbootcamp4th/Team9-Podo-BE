@@ -27,13 +27,13 @@ public class AdminController {
 		return new CommonResponse<>(adminService.getEventList());
 	}
 
-	@PostMapping("/arrival/config")
+	@PutMapping("/arrival/config")
 	@Operation(summary = "선착순 이벤트 수정 Api")
 	public CommonResponse<EventDto> arrivalEventConfig( @RequestBody EventConfigRequestDto dto){
 		return new CommonResponse<>(adminService.configArrivalEvent(dto));
 	}
 
-	@PostMapping("/lots/config")
+	@PutMapping("/lots/config")
 	@Operation(summary = "랜덤추첨 이벤트 수정 Api")
 	public CommonResponse<EventDto> lotsEventConfig( @RequestBody EventConfigRequestDto dto){
 		return new CommonResponse<>(adminService.configLotsEvent(dto));
