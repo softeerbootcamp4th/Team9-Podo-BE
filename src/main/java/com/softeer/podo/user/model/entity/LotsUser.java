@@ -21,10 +21,9 @@ public class LotsUser extends DateEntity {
     @Column(name = "user_id")
     private Long id;
     private String name;
-    private String reward;
-
     @Column(name = "phone_number", unique = true)
     private String phoneNum;
+    private String reward;
     @Enumerated(EnumType.STRING)
     private Role role;
 }
