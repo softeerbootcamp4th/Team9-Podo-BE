@@ -10,6 +10,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 @Entity
@@ -38,7 +39,7 @@ public class Event extends DateEntity {
     private String repeatDay;
     @JsonFormat(pattern = "HH:mm:ss")
     @Column(name = "repeat_time")
-    private LocalDateTime repeatTime;
+    private LocalTime repeatTime;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Column(name = "start_time")
