@@ -20,8 +20,8 @@ public class LotsUser extends DateEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
     private Long id;
-
     private String name;
+    private String reward;
 
     @Column(name = "phone_number", unique = true)
     private String phoneNum;
