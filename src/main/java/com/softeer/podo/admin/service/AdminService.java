@@ -6,6 +6,7 @@ import com.softeer.podo.admin.model.dto.user.ArrivalUserListDto;
 import com.softeer.podo.admin.model.dto.EventListResponseDto;
 import com.softeer.podo.admin.model.dto.mapper.AdminMapper;
 import com.softeer.podo.admin.model.dto.mapper.UserMapper;
+import com.softeer.podo.admin.model.dto.user.LotsUserListDto;
 import com.softeer.podo.admin.model.entity.Event;
 import com.softeer.podo.admin.model.entity.EventReward;
 import com.softeer.podo.admin.model.exception.EventNotFoundException;
@@ -36,7 +37,6 @@ public class AdminService {
 
 	@Transactional
 	public ArrivalUserListDto getArrivalApplicationList() {
-
 		ArrivalUserListDto arrivalUserListDto = userMapper.ArrivalUserListToArrivalUserListDto(arrivalUserRepository.findAll());
 		//선착순 이벤트 id
 		Optional<Event> arrivalEvent = eventRepository.findById(1L);
@@ -61,5 +61,9 @@ public class AdminService {
 		return arrivalUserListDto;
 	}
 
-
+	@Transactional
+	public LotsUserListDto getLotsApplicationList() {
+		LotsUserListDto lotsUserListDto = userMapper.LotsUserListToLotsUserListDto(lotsUserRepository.findAll());
+		return lotsUserListDto;
+	}
 }

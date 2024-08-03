@@ -2,6 +2,7 @@ package com.softeer.podo.admin.controller;
 
 import com.softeer.podo.admin.model.dto.user.ArrivalUserListDto;
 import com.softeer.podo.admin.model.dto.EventListResponseDto;
+import com.softeer.podo.admin.model.dto.user.LotsUserListDto;
 import com.softeer.podo.admin.service.AdminService;
 import com.softeer.podo.common.response.CommonResponse;
 import io.swagger.v3.oas.annotations.Operation;
@@ -29,6 +30,12 @@ public class AdminController {
 	@Operation(summary = "선착순 응모 인원 반환 Api")
 	public CommonResponse<ArrivalUserListDto> arrivalApplicationList(){
 		return new CommonResponse<>(adminService.getArrivalApplicationList());
+	}
+
+	@GetMapping("/lots/applicationList")
+	@Operation(summary = "랜덤추첨 응모 인원 반환 Api")
+	public CommonResponse<LotsUserListDto> lotsApplicationList(){
+		return new CommonResponse<>(adminService.getLotsApplicationList());
 	}
 
 }
