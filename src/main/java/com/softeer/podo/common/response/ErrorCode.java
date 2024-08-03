@@ -29,6 +29,9 @@ public enum ErrorCode {
     INVALID_SELECTION_ERROR(false, HttpStatus.BAD_REQUEST.value(), "선택지 형식이 잘못되었습니다."),
     USER_NOT_EXIST_ERROR(false, HttpStatus.BAD_REQUEST.value(), "해당 사용자가 아직 이벤트에 응모하지 않았습니다."),
     EXISTING_COMMENT_ERROR(false, HttpStatus.BAD_REQUEST.value(),"이미 기대평을 작성했습니다."),
+
+    //admin
+    EVENT_NOT_FOUND_ERROR(false, HttpStatus.INTERNAL_SERVER_ERROR.value(),"해당 이벤트를 찾을 수 없습니다."),
     ;
 
 
