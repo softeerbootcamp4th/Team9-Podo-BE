@@ -1,6 +1,8 @@
 package com.softeer.podo.admin.service;
 
 
+import com.softeer.podo.admin.model.dto.EventConfigRequestDto;
+import com.softeer.podo.admin.model.dto.EventDto;
 import com.softeer.podo.admin.model.dto.user.ArrivalUserDto;
 import com.softeer.podo.admin.model.dto.user.ArrivalUserListDto;
 import com.softeer.podo.admin.model.dto.EventListResponseDto;
@@ -33,6 +35,26 @@ public class AdminService {
 	@Transactional
 	public EventListResponseDto getEventList() {
 		return adminMapper.eventListToEventListResponseDto(eventRepository.findAll());
+	}
+
+	@Transactional
+	public EventDto configArrivalEvent(EventConfigRequestDto dto) {
+		Optional<Event> optionalArrivalEvent = eventRepository.findById(1L);
+		if(optionalArrivalEvent.isEmpty()){
+			throw new EventNotFoundException();
+		}
+		Event arrivalEvent = optionalArrivalEvent.get();
+
+		arrivalEvent.setTitle(dto.getTitle());
+		arrivalEvent.setDescription(dto.getDescription());
+		arrivalEvent.setRepeatDay(dto.getRepeatDay());
+		arrivalEvent.setRepeatTime(dto.getRepeatTime());
+		arrivalEvent.setStartAt(dto.getStartAt());
+		arrivalEvent.setEndAt(dto.getEndAt());
+		arrivalEvent.setTagImage(dto.getTagImage());
+
+		eventRepository.save(arrivalEvent);
+		return adminMapper.EventToEventDto(arrivalEvent);
 	}
 
 	@Transactional

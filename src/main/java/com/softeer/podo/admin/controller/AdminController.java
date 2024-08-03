@@ -1,16 +1,17 @@
 package com.softeer.podo.admin.controller;
 
+import com.softeer.podo.admin.model.dto.EventConfigRequestDto;
+import com.softeer.podo.admin.model.dto.EventDto;
 import com.softeer.podo.admin.model.dto.user.ArrivalUserListDto;
 import com.softeer.podo.admin.model.dto.EventListResponseDto;
 import com.softeer.podo.admin.model.dto.user.LotsUserListDto;
 import com.softeer.podo.admin.service.AdminService;
 import com.softeer.podo.common.response.CommonResponse;
 import io.swagger.v3.oas.annotations.Operation;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/admin")
@@ -24,6 +25,12 @@ public class AdminController {
 	@Operation(summary = "이벤트 목록 반환 Api")
 	public CommonResponse<EventListResponseDto> eventList(){
 		return new CommonResponse<>(adminService.getEventList());
+	}
+
+	@PostMapping("/arrival/config")
+	@Operation(summary = "선착순 이벤트 수정 Api")
+	public CommonResponse<EventDto> arrivalEventConfig( @RequestBody EventConfigRequestDto dto){
+		return new CommonResponse<>(adminService.configArrivalEvent(dto));
 	}
 
 	@GetMapping("/arrival/applicationList")
