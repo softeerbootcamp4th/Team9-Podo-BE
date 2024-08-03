@@ -14,44 +14,44 @@ import java.util.List;
 @Component
 public class AdminMapper {
 
+	public EventDto EventToEventDto(Event event) {
+		List<EventRewardDto> eventRewardDtoList = new ArrayList<>();
+		for(EventReward eventReward : event.getEventRewardList()){
+			eventRewardDtoList.add(
+					new EventRewardDto(
+							eventReward.getRewardRank(),
+							eventReward.getNumWinners(),
+							eventReward.getReward()
+					)
+			);
+		}
+		return EventDto.builder()
+				.id(event.getId())
+				.eventType(event.getEventType().getType())
+				.title(event.getTitle())
+				.description(event.getDescription())
+				.repeatDay(event.getRepeatDay())
+				.repeatTime(event.getRepeatTime())
+				.startAt(event.getStartAt())
+				.endAt(event.getEndAt())
+				.tagImage(event.getTagImage())
+				.eventRewardList(eventRewardDtoList)
+				.eventWeight(
+						(event.getEventWeight() == null)?
+								null :
+								new EventWeightDto(
+										event.getEventWeight().getTimes(),
+										event.getEventWeight().getWeightCondition()
+								)
+				)
+				.build();
+	}
+
 	public EventListResponseDto eventListToEventListResponseDto(List<Event> eventList){
 
 		List<EventDto> eventDtoList = new ArrayList<>();
 		for (Event event : eventList) {
-			List<EventRewardDto> eventRewardDtoList = new ArrayList<>();
-			for(EventReward eventReward : event.getEventRewardList()){
-				eventRewardDtoList.add(
-						new EventRewardDto(
-								eventReward.getRewardRank(),
-								eventReward.getNumWinners(),
-								eventReward.getReward()
-						)
-				);
-			}
-
-
-			eventDtoList.add(
-					EventDto.builder()
-							.id(event.getId())
-							.eventType(event.getEventType().getType())
-							.title(event.getTitle())
-							.description(event.getDescription())
-							.repeatDay(event.getRepeatDay())
-							.repeatTime(event.getRepeatTime())
-							.startAt(event.getStartAt())
-							.endAt(event.getEndAt())
-							.tagImage(event.getTagImage())
-							.eventRewardList(eventRewardDtoList)
-							.eventWeight(
-									(event.getEventWeight() == null)?
-											null :
-									new EventWeightDto(
-											event.getEventWeight().getTimes(),
-											event.getEventWeight().getWeightCondition()
-									)
-							)
-							.build()
-			);
+			eventDtoList.add(EventToEventDto(event));
 		}
 
 		return new EventListResponseDto(eventDtoList);
