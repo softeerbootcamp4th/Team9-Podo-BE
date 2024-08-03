@@ -1,6 +1,6 @@
 package com.softeer.podo.admin.controller;
 
-import com.softeer.podo.admin.model.dto.ArrivalUserListDto;
+import com.softeer.podo.admin.model.dto.user.ArrivalUserListDto;
 import com.softeer.podo.admin.model.dto.EventListResponseDto;
 import com.softeer.podo.admin.service.AdminService;
 import com.softeer.podo.common.response.CommonResponse;

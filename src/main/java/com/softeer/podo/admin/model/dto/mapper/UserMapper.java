@@ -1,8 +1,8 @@
 package com.softeer.podo.admin.model.dto.mapper;
 
 
-import com.softeer.podo.admin.model.dto.ArrivalUserDto;
-import com.softeer.podo.admin.model.dto.ArrivalUserListDto;
+import com.softeer.podo.admin.model.dto.user.ArrivalUserDto;
+import com.softeer.podo.admin.model.dto.user.ArrivalUserListDto;
 import com.softeer.podo.user.model.entity.ArrivalUser;
 import org.springframework.stereotype.Component;
 

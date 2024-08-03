@@ -1,8 +1,8 @@
 package com.softeer.podo.admin.service;
 
 
-import com.softeer.podo.admin.model.dto.ArrivalUserDto;
-import com.softeer.podo.admin.model.dto.ArrivalUserListDto;
+import com.softeer.podo.admin.model.dto.user.ArrivalUserDto;
+import com.softeer.podo.admin.model.dto.user.ArrivalUserListDto;
 import com.softeer.podo.admin.model.dto.EventListResponseDto;
 import com.softeer.podo.admin.model.dto.mapper.AdminMapper;
 import com.softeer.podo.admin.model.dto.mapper.UserMapper;

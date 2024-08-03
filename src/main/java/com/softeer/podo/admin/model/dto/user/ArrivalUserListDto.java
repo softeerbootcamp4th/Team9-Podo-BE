@@ -1,4 +1,4 @@
-package com.softeer.podo.admin.model.dto;
+package com.softeer.podo.admin.model.dto.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
