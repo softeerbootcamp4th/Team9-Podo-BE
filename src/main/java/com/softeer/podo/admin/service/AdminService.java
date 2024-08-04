@@ -1,12 +1,9 @@
 package com.softeer.podo.admin.service;
 
 
-import com.softeer.podo.admin.model.dto.EventConfigRequestDto;
-import com.softeer.podo.admin.model.dto.EventDto;
-import com.softeer.podo.admin.model.dto.EventRewardDto;
+import com.softeer.podo.admin.model.dto.*;
 import com.softeer.podo.admin.model.dto.user.ArrivalUserDto;
 import com.softeer.podo.admin.model.dto.user.ArrivalUserListDto;
-import com.softeer.podo.admin.model.dto.EventListResponseDto;
 import com.softeer.podo.admin.model.dto.mapper.AdminMapper;
 import com.softeer.podo.admin.model.dto.mapper.UserMapper;
 import com.softeer.podo.admin.model.dto.user.LotsUserListDto;
@@ -15,13 +12,13 @@ import com.softeer.podo.admin.model.entity.EventReward;
 import com.softeer.podo.admin.model.exception.EventNotFoundException;
 import com.softeer.podo.admin.repository.EventRepository;
 import com.softeer.podo.admin.repository.EventRewardRepository;
+import com.softeer.podo.admin.repository.EventWeightRepository;
 import com.softeer.podo.user.repository.ArrivalUserRepository;
 import com.softeer.podo.user.repository.LotsUserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
@@ -31,6 +28,7 @@ import java.util.Optional;
 public class AdminService {
 	private final EventRepository eventRepository;
 	private final EventRewardRepository eventRewardRepository;
+	private final EventWeightRepository eventWeightRepository;
 	private final AdminMapper adminMapper;
 	private final LotsUserRepository lotsUserRepository;
 	private final ArrivalUserRepository arrivalUserRepository;
@@ -82,7 +80,7 @@ public class AdminService {
 	}
 
 	@Transactional
-	public ArrivalUserListDto configArrivalEventReward(List<EventRewardDto> dto) {
+	public ArrivalUserListDto configArrivalEventReward(EventRewardConfigRequestDto dto) {
 		Optional<Event> optionalArrivalEvent = eventRepository.findById(1L);
 		if(optionalArrivalEvent.isEmpty()){
 			throw new EventNotFoundException();
@@ -93,8 +91,7 @@ public class AdminService {
 		eventRewardRepository.deleteAll(arrivalReward);
 		eventRewardRepository.flush(); // 즉시 데이터베이스에 반영
 
-
-		for(EventRewardDto rewardDto : dto) {
+		for(EventRewardDto rewardDto : dto.getEventRewardList()) {
 			eventRewardRepository.save(
 					EventReward.builder()
 							.event(arrivalEvent)
@@ -105,6 +102,36 @@ public class AdminService {
 			);
 		}
 		return getArrivalApplicationList();
+	}
+
+	@Transactional
+	public LotsUserListDto configLotsEventReward(EventRewardConfigRequestDto dto) {
+		Optional<Event> optionalLotsEvent = eventRepository.findById(2L);
+		if(optionalLotsEvent.isEmpty()){
+			throw new EventNotFoundException();
+		}
+		Event lotsEvent = optionalLotsEvent.get();
+
+		List<EventReward> lotsReward = eventRewardRepository.findByEvent(lotsEvent);
+		eventRewardRepository.deleteAll(lotsReward);
+		eventRewardRepository.flush(); // 즉시 데이터베이스에 반영
+
+		for(EventRewardDto rewardDto : dto.getEventRewardList()) {
+			eventRewardRepository.save(
+					EventReward.builder()
+							.event(lotsEvent)
+							.reward(rewardDto.getReward())
+							.rewardRank(rewardDto.getRank())
+							.numWinners(rewardDto.getNumWinners())
+							.build()
+			);
+		}
+
+		lotsEvent.getEventWeight().setWeightCondition(dto.getEventWeight().getCondition());
+		lotsEvent.getEventWeight().setTimes(dto.getEventWeight().getTimes());
+		eventWeightRepository.save(lotsEvent.getEventWeight());
+
+		return getLotsApplicationList();
 	}
 
 	@Transactional

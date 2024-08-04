@@ -1,10 +1,7 @@
 package com.softeer.podo.admin.controller;
 
-import com.softeer.podo.admin.model.dto.EventConfigRequestDto;
-import com.softeer.podo.admin.model.dto.EventDto;
-import com.softeer.podo.admin.model.dto.EventRewardDto;
+import com.softeer.podo.admin.model.dto.*;
 import com.softeer.podo.admin.model.dto.user.ArrivalUserListDto;
-import com.softeer.podo.admin.model.dto.EventListResponseDto;
 import com.softeer.podo.admin.model.dto.user.LotsUserListDto;
 import com.softeer.podo.admin.service.AdminService;
 import com.softeer.podo.common.response.CommonResponse;
@@ -44,8 +41,14 @@ public class AdminController {
 
 	@PutMapping("/arrival/rewardconfig")
 	@Operation(summary = "선착순 이벤트 상품 수정 Api")
-	public CommonResponse<ArrivalUserListDto> arrivalEventRewardConfig(@RequestBody List<EventRewardDto> dto){
+	public CommonResponse<ArrivalUserListDto> arrivalEventRewardConfig(@RequestBody EventRewardConfigRequestDto dto){
 		return new CommonResponse<>(adminService.configArrivalEventReward(dto));
+	}
+
+	@PutMapping("/lots/rewardconfig")
+	@Operation(summary = "랜덤추첨 이벤트 상품 수정 Api")
+	public CommonResponse<LotsUserListDto> lotsEventRewardConfig(@RequestBody EventRewardConfigRequestDto dto){
+		return new CommonResponse<>(adminService.configLotsEventReward(dto));
 	}
 
 	@GetMapping("/arrival/applicationList")
