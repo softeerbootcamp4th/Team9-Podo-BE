@@ -3,6 +3,7 @@ package com.softeer.podo.admin.service;
 
 import com.softeer.podo.admin.model.dto.EventConfigRequestDto;
 import com.softeer.podo.admin.model.dto.EventDto;
+import com.softeer.podo.admin.model.dto.EventRewardDto;
 import com.softeer.podo.admin.model.dto.user.ArrivalUserDto;
 import com.softeer.podo.admin.model.dto.user.ArrivalUserListDto;
 import com.softeer.podo.admin.model.dto.EventListResponseDto;
@@ -13,12 +14,14 @@ import com.softeer.podo.admin.model.entity.Event;
 import com.softeer.podo.admin.model.entity.EventReward;
 import com.softeer.podo.admin.model.exception.EventNotFoundException;
 import com.softeer.podo.admin.repository.EventRepository;
+import com.softeer.podo.admin.repository.EventRewardRepository;
 import com.softeer.podo.user.repository.ArrivalUserRepository;
 import com.softeer.podo.user.repository.LotsUserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
@@ -27,6 +30,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class AdminService {
 	private final EventRepository eventRepository;
+	private final EventRewardRepository eventRewardRepository;
 	private final AdminMapper adminMapper;
 	private final LotsUserRepository lotsUserRepository;
 	private final ArrivalUserRepository arrivalUserRepository;
@@ -78,6 +82,32 @@ public class AdminService {
 	}
 
 	@Transactional
+	public ArrivalUserListDto configArrivalEventReward(List<EventRewardDto> dto) {
+		Optional<Event> optionalArrivalEvent = eventRepository.findById(1L);
+		if(optionalArrivalEvent.isEmpty()){
+			throw new EventNotFoundException();
+		}
+		Event arrivalEvent = optionalArrivalEvent.get();
+
+		List<EventReward> arrivalReward = eventRewardRepository.findByEvent(arrivalEvent);
+		eventRewardRepository.deleteAll(arrivalReward);
+		eventRewardRepository.flush(); // 즉시 데이터베이스에 반영
+
+
+		for(EventRewardDto rewardDto : dto) {
+			eventRewardRepository.save(
+					EventReward.builder()
+							.event(arrivalEvent)
+							.reward(rewardDto.getReward())
+							.rewardRank(rewardDto.getRank())
+							.numWinners(rewardDto.getNumWinners())
+							.build()
+			);
+		}
+		return getArrivalApplicationList();
+	}
+
+	@Transactional
 	public ArrivalUserListDto getArrivalApplicationList() {
 		ArrivalUserListDto arrivalUserListDto = userMapper.ArrivalUserListToArrivalUserListDto(arrivalUserRepository.findAll());
 		//선착순 이벤트 id
@@ -96,7 +126,7 @@ public class AdminService {
 				if (arrivalUserDto.getRank() - base <= eventReward.getNumWinners()) {
 					arrivalUserDto.setReward(eventReward.getReward());
 					break;
-				}
+				}else arrivalUserDto.setReward("");
 				base += eventReward.getNumWinners();
 			}
 		}
