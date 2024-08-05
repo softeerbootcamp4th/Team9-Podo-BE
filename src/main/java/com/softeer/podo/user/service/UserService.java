@@ -23,7 +23,14 @@ public class UserService {
 
     @Transactional
     public UserDto saveUser(String name, String phoneNum) {
-        LotsUser savedLotsUser = lotsUserRepository.save(new LotsUser(null, name, phoneNum, "", Role.ROLE_USER));
+        LotsUser savedLotsUser = lotsUserRepository.save(
+                LotsUser.builder()
+                        .name(name)
+                        .phoneNum(phoneNum)
+                        .reward("")
+                        .role(Role.ROLE_USER)
+                        .build()
+        );
         return new UserDto(savedLotsUser.getId(), savedLotsUser.getName(), savedLotsUser.getPhoneNum(), savedLotsUser.getRole());
     }
 }
