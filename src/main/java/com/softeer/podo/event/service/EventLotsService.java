@@ -37,7 +37,7 @@ public class EventLotsService {
      * @return 유형테스트 결과
      */
     @Transactional
-    public LotsApplicationResponseDto applyArrivalEvent(AuthInfo authInfo, LotsApplicationRequestDto dto)  {
+    public LotsApplicationResponseDto applyLotsEvent(AuthInfo authInfo, LotsApplicationRequestDto dto)  {
 
         if(lotsUserRepository.existsByPhoneNum(authInfo.getPhoneNum())){
             throw new ExistingUserException("이미 존재하는 전화번호입니다.");
@@ -50,6 +50,7 @@ public class EventLotsService {
                 .name(authInfo.getName())
                 .phoneNum(authInfo.getPhoneNum())
                 .role(authInfo.getRole())
+                .reward("")
                 .build();
 
         lotsUserRepository.save(lotsUser);
