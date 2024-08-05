@@ -1,6 +1,7 @@
 package com.softeer.podo.user.model.entity;
 
 import com.softeer.podo.common.entity.DateEntity;
+import com.softeer.podo.event.model.entity.LotsComment;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -26,4 +27,6 @@ public class LotsUser extends DateEntity {
     private String reward;
     @Enumerated(EnumType.STRING)
     private Role role;
+    @OneToOne(mappedBy = "lotsUser", orphanRemoval = true, cascade = CascadeType.ALL)
+    private LotsComment lotsComment;
 }
