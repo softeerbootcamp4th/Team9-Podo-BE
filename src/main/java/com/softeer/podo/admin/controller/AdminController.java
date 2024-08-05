@@ -63,4 +63,9 @@ public class AdminController {
 		return new CommonResponse<>(adminService.getLotsApplicationList());
 	}
 
+	@GetMapping("/lots/pickrandom")
+	@Operation(summary = "랜덤추첨 Api")
+	public CommonResponse<LotsUserListDto> pickRandomLotsUser(){
+		return new CommonResponse<>(adminService.getLotsResult());
+	}
 }

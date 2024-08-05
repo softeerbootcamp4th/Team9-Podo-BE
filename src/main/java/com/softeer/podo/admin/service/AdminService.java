@@ -13,6 +13,7 @@ import com.softeer.podo.admin.model.exception.EventNotFoundException;
 import com.softeer.podo.admin.repository.EventRepository;
 import com.softeer.podo.admin.repository.EventRewardRepository;
 import com.softeer.podo.admin.repository.EventWeightRepository;
+import com.softeer.podo.user.model.entity.LotsUser;
 import com.softeer.podo.user.repository.ArrivalUserRepository;
 import com.softeer.podo.user.repository.LotsUserRepository;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 
 @Service
 @RequiredArgsConstructor
@@ -164,5 +166,59 @@ public class AdminService {
 	public LotsUserListDto getLotsApplicationList() {
 		LotsUserListDto lotsUserListDto = userMapper.LotsUserListToLotsUserListDto(lotsUserRepository.findAll());
 		return lotsUserListDto;
+	}
+
+	@Transactional
+	public LotsUserListDto getLotsResult(){
+		//랜덤 추첨 이벤트
+		Optional<Event> optionalLotsEvent = eventRepository.findById(2L);
+		if(optionalLotsEvent.isEmpty()){
+			throw new EventNotFoundException();
+		}
+		Event lotsEvent = optionalLotsEvent.get();
+		//보상 리스트
+		List<EventReward> eventRewardList = lotsEvent.getEventRewardList();
+		//응모 목록
+		List<LotsUser> lotsUserList = lotsUserRepository.findAll();
+
+		//comment에 대한 가중치
+		int weight = lotsEvent.getEventWeight().getTimes();
+		//전체 가중치합
+		int totalWeight = 0;
+		for(LotsUser lotsUser : lotsUserList){
+			if(lotsUser.getLotsComment() != null){
+				totalWeight += weight;
+			}else totalWeight++;
+		}
+
+		eventRewardList.sort(Comparator.comparingInt(EventReward::getRewardRank));
+		for(EventReward eventReward : eventRewardList){
+			//해당 reward 추첨
+			for(int winCount = 0; winCount < eventReward.getNumWinners() && !lotsUserList.isEmpty(); winCount++){
+				long currentTimeMillis = System.currentTimeMillis();
+				Random random = new Random(currentTimeMillis);
+				int randomInt = random.nextInt(totalWeight); // 랜덤 정수
+
+				int weightSum = 0;
+				for(int i = 0; i < lotsUserList.size(); i++){
+					LotsUser lotsUser = lotsUserList.get(i);
+					weightSum += lotsUser.getLotsComment() != null ? weight : 1;
+					if(randomInt < weightSum){
+						lotsUser.setReward(eventReward.getReward());
+						lotsUserRepository.save(lotsUser);
+						lotsUserList.remove(i);
+						totalWeight -= lotsUser.getLotsComment() != null ? weight : 1;
+						break;
+					}
+				}
+			}
+		}
+
+		for(LotsUser lotsUser : lotsUserList) {
+			lotsUser.setReward("");
+			lotsUserRepository.save(lotsUser);
+		}
+
+		return getLotsApplicationList();
 	}
 }
