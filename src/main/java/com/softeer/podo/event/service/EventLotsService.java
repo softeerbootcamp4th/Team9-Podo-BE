@@ -16,8 +16,8 @@ import com.softeer.podo.event.repository.TestResultRepository;
 import com.softeer.podo.event.util.Result;
 import com.softeer.podo.event.util.SelectionMap;
 import com.softeer.podo.security.AuthInfo;
-import com.softeer.podo.user.model.entity.User;
-import com.softeer.podo.user.repository.UserRepository;
+import com.softeer.podo.user.model.entity.LotsUser;
+import com.softeer.podo.user.repository.LotsUserRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -25,7 +25,7 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class EventLotsService {
-    private final UserRepository userRepository;
+    private final LotsUserRepository lotsUserRepository;
     private final SelectionMap selectionMap;
     private final TestResultRepository testResultRepository;
     private final LotsCommentRepository lotsCommentRepository;
@@ -39,22 +39,23 @@ public class EventLotsService {
      * @return 유형테스트 결과
      */
     @Transactional
-    public LotsApplicationResponseDto applyArrivalEvent(AuthInfo authInfo, LotsApplicationRequestDto dto)  {
+    public LotsApplicationResponseDto applyLotsEvent(AuthInfo authInfo, LotsApplicationRequestDto dto)  {
 
-        if(userRepository.existsByPhoneNum(authInfo.getPhoneNum())){
+        if(lotsUserRepository.existsByPhoneNum(authInfo.getPhoneNum())){
             throw new ExistingUserException("이미 존재하는 전화번호입니다.");
         }
 
         Result result = selectionMap.getResult(dto.getSelection());
 
 
-        User user = User.builder()
+        LotsUser lotsUser = LotsUser.builder()
                 .name(authInfo.getName())
                 .phoneNum(authInfo.getPhoneNum())
                 .role(authInfo.getRole())
+                .reward("")
                 .build();
 
-        userRepository.save(user);
+        lotsUserRepository.save(lotsUser);
 
         TestResult testResult = testResultRepository.findByResult(result);
         return lotsEventMapper.TestResultToApplicationDto(testResult);
@@ -69,21 +70,21 @@ public class EventLotsService {
     @Transactional
     public LotsCommentResponseDto comment(AuthInfo authInfo, LotsCommentRequestDto dto)  {
         //사용자가 이벤트에 아직 응모하지 않았을때
-        if(!userRepository.existsByPhoneNum(authInfo.getPhoneNum())){
+        if(!lotsUserRepository.existsByPhoneNum(authInfo.getPhoneNum())){
             throw new UserNotExistException("해당 사용자가 아직 이벤트에 응모하지 않았습니다.");
         }
 
         // 여기에 comment 내용 체크용 로직 구현
 
-        User user = userRepository.findByNameAndPhoneNum(authInfo.getName(), authInfo.getPhoneNum());
+        LotsUser lotsUser = lotsUserRepository.findByNameAndPhoneNum(authInfo.getName(), authInfo.getPhoneNum());
 
         //이미 comment가 존재할때
-        if(lotsCommentRepository.existsByUser(user)){
+        if(lotsCommentRepository.existsByLotsUser(lotsUser)){
             throw new ExistingCommentException("이미 기대평을 작성했습니다.");
         }
 
         LotsComment comment = LotsComment.builder()
-                .user(user)
+                .lotsUser(lotsUser)
                 .comment(dto.getComment())
                 .build();
         lotsCommentRepository.save(comment);

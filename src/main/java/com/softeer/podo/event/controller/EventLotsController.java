@@ -27,7 +27,7 @@ public class EventLotsController {
     @Operation(summary = "유형테스트 결과 제출  Api")
     public CommonResponse<LotsApplicationResponseDto> eventApplication(@Auth AuthInfo authInfo,
                                                                        @Valid @RequestBody  LotsApplicationRequestDto dto) {
-        return new CommonResponse<>(eventLotsService.applyArrivalEvent(authInfo, dto));
+        return new CommonResponse<>(eventLotsService.applyLotsEvent(authInfo, dto));
     }
 
     @PostMapping("/comment")

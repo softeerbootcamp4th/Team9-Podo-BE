@@ -1,9 +1,9 @@
 package com.softeer.podo.user.service;
 
 import com.softeer.podo.user.model.dto.UserDto;
+import com.softeer.podo.user.model.entity.LotsUser;
 import com.softeer.podo.user.model.entity.Role;
-import com.softeer.podo.user.model.entity.User;
-import com.softeer.podo.user.repository.UserRepository;
+import com.softeer.podo.user.repository.LotsUserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -14,16 +14,23 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class UserService {
 
-    private final UserRepository userRepository;
+    private final LotsUserRepository lotsUserRepository;
 
     @Transactional(readOnly = true)
     public boolean checkUserAlreadyExists(String phoneNum) {
-        return userRepository.existsByPhoneNum(phoneNum);
+        return lotsUserRepository.existsByPhoneNum(phoneNum);
     }
 
     @Transactional
     public UserDto saveUser(String name, String phoneNum) {
-        User savedUser = userRepository.save(new User(null, name, phoneNum, Role.ROLE_USER));
-        return new UserDto(savedUser.getId(), savedUser.getName(), savedUser.getPhoneNum(), savedUser.getRole());
+        LotsUser savedLotsUser = lotsUserRepository.save(
+                LotsUser.builder()
+                        .name(name)
+                        .phoneNum(phoneNum)
+                        .reward("")
+                        .role(Role.ROLE_USER)
+                        .build()
+        );
+        return new UserDto(savedLotsUser.getId(), savedLotsUser.getName(), savedLotsUser.getPhoneNum(), savedLotsUser.getRole());
     }
 }

@@ -21,7 +21,7 @@ public class FilterConfig {
         FilterRegistrationBean<JwtAuthenticationFilter> registrationBean = new FilterRegistrationBean<>();
         registrationBean.setFilter(new JwtAuthenticationFilter(tokenProvider));
         registrationBean.addUrlPatterns("/test/auth"); // 필터를 적용할 URL 패턴
-        registrationBean.addUrlPatterns("/v1/lots/*"); // 필터를 적용할 URL 패턴
+        registrationBean.addUrlPatterns("/v1/*"); // 필터를 적용할 URL 패턴
         registrationBean.setOrder(2); // 필터의 순서 (숫자가 낮을수록 먼저 실행됨)
         return registrationBean;
     }
@@ -31,6 +31,7 @@ public class FilterConfig {
         FilterRegistrationBean<ExceptionHandleFilter> registrationBean = new FilterRegistrationBean<>();
         registrationBean.setFilter(new ExceptionHandleFilter(objectMapper));
         registrationBean.addUrlPatterns("/test/auth"); // 필터를 적용할 URL 패턴
+        registrationBean.addUrlPatterns("/v1/*"); // 필터를 적용할 URL 패턴
         registrationBean.setOrder(1); // 필터의 순서 (숫자가 낮을수록 먼저 실행됨)
         return registrationBean;
     }

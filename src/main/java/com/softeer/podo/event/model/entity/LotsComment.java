@@ -2,7 +2,7 @@ package com.softeer.podo.event.model.entity;
 
 
 import com.softeer.podo.common.entity.DateEntity;
-import com.softeer.podo.user.model.entity.User;
+import com.softeer.podo.user.model.entity.LotsUser;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -20,7 +20,7 @@ public class LotsComment extends DateEntity {
 
     @OneToOne
     @JoinColumn(name = "user_id")
-    private User user;
+    private LotsUser lotsUser;
 
     @Column(name = "content")
     private String comment;
