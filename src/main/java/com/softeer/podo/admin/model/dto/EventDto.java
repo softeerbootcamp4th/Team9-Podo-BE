@@ -12,7 +12,6 @@ import java.util.List;
 
 @Data
 @Builder
-@JsonInclude(JsonInclude.Include.ALWAYS) // null 값 포함
 public class EventDto{
 	private Long id;
 	private String eventType;
