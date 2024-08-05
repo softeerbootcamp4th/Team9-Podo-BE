@@ -20,10 +20,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Comparator;
-import java.util.List;
-import java.util.Optional;
-import java.util.Random;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -43,11 +40,7 @@ public class AdminService {
 
 	@Transactional
 	public EventDto configArrivalEvent(EventConfigRequestDto dto) {
-		Optional<Event> optionalArrivalEvent = eventRepository.findById(1L);
-		if(optionalArrivalEvent.isEmpty()){
-			throw new EventNotFoundException();
-		}
-		Event arrivalEvent = optionalArrivalEvent.get();
+		Event arrivalEvent = eventRepository.findById(1L).orElseThrow(EventNotFoundException::new);
 
 		arrivalEvent.setTitle(dto.getTitle());
 		arrivalEvent.setDescription(dto.getDescription());
@@ -63,11 +56,7 @@ public class AdminService {
 
 	@Transactional
 	public EventDto configLotsEvent(EventConfigRequestDto dto) {
-		Optional<Event> optionalLotslEvent = eventRepository.findById(2L);
-		if(optionalLotslEvent.isEmpty()){
-			throw new EventNotFoundException();
-		}
-		Event lotsEvent = optionalLotslEvent.get();
+		Event lotsEvent =  eventRepository.findById(2L).orElseThrow(EventNotFoundException::new);
 
 		lotsEvent.setTitle(dto.getTitle());
 		lotsEvent.setDescription(dto.getDescription());
@@ -83,14 +72,10 @@ public class AdminService {
 
 	@Transactional
 	public ArrivalUserListDto configArrivalEventReward(EventRewardConfigRequestDto dto) {
-		Optional<Event> optionalArrivalEvent = eventRepository.findById(1L);
-		if(optionalArrivalEvent.isEmpty()){
-			throw new EventNotFoundException();
-		}
-		Event arrivalEvent = optionalArrivalEvent.get();
+		Event arrivalEvent = eventRepository.findById(1L).orElseThrow(EventNotFoundException::new);
 
 		List<EventReward> arrivalReward = eventRewardRepository.findByEvent(arrivalEvent);
-		eventRewardRepository.deleteAll(arrivalReward);
+		eventRewardRepository.deleteAllInBatch(arrivalReward);
 		eventRewardRepository.flush(); // 즉시 데이터베이스에 반영
 
 		for(EventRewardDto rewardDto : dto.getEventRewardList()) {
@@ -108,14 +93,10 @@ public class AdminService {
 
 	@Transactional
 	public LotsUserListDto configLotsEventReward(EventRewardConfigRequestDto dto) {
-		Optional<Event> optionalLotsEvent = eventRepository.findById(2L);
-		if(optionalLotsEvent.isEmpty()){
-			throw new EventNotFoundException();
-		}
-		Event lotsEvent = optionalLotsEvent.get();
+		Event lotsEvent = eventRepository.findById(2L).orElseThrow(EventNotFoundException::new);
 
 		List<EventReward> lotsReward = eventRewardRepository.findByEvent(lotsEvent);
-		eventRewardRepository.deleteAll(lotsReward);
+		eventRewardRepository.deleteAllInBatch(lotsReward);
 		eventRewardRepository.flush(); // 즉시 데이터베이스에 반영
 
 		for(EventRewardDto rewardDto : dto.getEventRewardList()) {
@@ -140,11 +121,8 @@ public class AdminService {
 	public ArrivalUserListDto getArrivalApplicationList() {
 		ArrivalUserListDto arrivalUserListDto = userMapper.ArrivalUserListToArrivalUserListDto(arrivalUserRepository.findAll());
 		//선착순 이벤트 id
-		Optional<Event> arrivalEvent = eventRepository.findById(1L);
-		if(arrivalEvent.isEmpty()){
-			throw new EventNotFoundException();
-		}
-		List<EventReward> eventRewardList = arrivalEvent.get().getEventRewardList();
+		Event arrivalEvent = eventRepository.findById(1L).orElseThrow(EventNotFoundException::new);
+		List<EventReward> eventRewardList = arrivalEvent.getEventRewardList();
 		// 보상 순위 기준으로 정렬
 		eventRewardList.sort(Comparator.comparingInt(EventReward::getRewardRank));
 
@@ -164,18 +142,13 @@ public class AdminService {
 
 	@Transactional
 	public LotsUserListDto getLotsApplicationList() {
-		LotsUserListDto lotsUserListDto = userMapper.LotsUserListToLotsUserListDto(lotsUserRepository.findAll());
-		return lotsUserListDto;
+		return userMapper.LotsUserListToLotsUserListDto(lotsUserRepository.findAll());
 	}
 
 	@Transactional
 	public LotsUserListDto getLotsResult(){
 		//랜덤 추첨 이벤트
-		Optional<Event> optionalLotsEvent = eventRepository.findById(2L);
-		if(optionalLotsEvent.isEmpty()){
-			throw new EventNotFoundException();
-		}
-		Event lotsEvent = optionalLotsEvent.get();
+		Event lotsEvent = eventRepository.findById(2L).orElseThrow(EventNotFoundException::new);
 		//보상 리스트
 		List<EventReward> eventRewardList = lotsEvent.getEventRewardList();
 		//응모 목록
@@ -191,6 +164,7 @@ public class AdminService {
 			}else totalWeight++;
 		}
 
+		ArrayList<Boolean> userCheckList = new ArrayList<>(Collections.nCopies(lotsUserList.size(), false));
 		eventRewardList.sort(Comparator.comparingInt(EventReward::getRewardRank));
 		for(EventReward eventReward : eventRewardList){
 			//해당 reward 추첨
@@ -201,12 +175,13 @@ public class AdminService {
 
 				int weightSum = 0;
 				for(int i = 0; i < lotsUserList.size(); i++){
+					if(userCheckList.get(i)){ continue; }
 					LotsUser lotsUser = lotsUserList.get(i);
 					weightSum += lotsUser.getLotsComment() != null ? weight : 1;
 					if(randomInt < weightSum){
 						lotsUser.setReward(eventReward.getReward());
 						lotsUserRepository.save(lotsUser);
-						lotsUserList.remove(i);
+						userCheckList.set(i, true);
 						totalWeight -= lotsUser.getLotsComment() != null ? weight : 1;
 						break;
 					}
@@ -214,9 +189,10 @@ public class AdminService {
 			}
 		}
 
-		for(LotsUser lotsUser : lotsUserList) {
-			lotsUser.setReward("");
-			lotsUserRepository.save(lotsUser);
+		for(int i = 0; i < lotsUserList.size(); i++) {
+			if(userCheckList.get(i)){ continue; }
+			lotsUserList.get(i).setReward("");
+			lotsUserRepository.save(lotsUserList.get(i));
 		}
 
 		return getLotsApplicationList();
