@@ -25,7 +25,7 @@ public class Event extends DateEntity {
     @Column(name = "event_id")
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "type_id")
     private EventType eventType;
 
