@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class AdminMapper {
+public class EventMapper {
 
 	public EventDto EventToEventDto(Event event) {
 		List<EventRewardDto> eventRewardDtoList = new ArrayList<>();

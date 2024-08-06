@@ -4,7 +4,7 @@ package com.softeer.podo.admin.service;
 import com.softeer.podo.admin.model.dto.*;
 import com.softeer.podo.admin.model.dto.user.ArrivalUserDto;
 import com.softeer.podo.admin.model.dto.user.ArrivalUserListDto;
-import com.softeer.podo.admin.model.dto.mapper.AdminMapper;
+import com.softeer.podo.admin.model.dto.mapper.EventMapper;
 import com.softeer.podo.admin.model.dto.mapper.UserMapper;
 import com.softeer.podo.admin.model.dto.user.LotsUserListDto;
 import com.softeer.podo.admin.model.entity.Event;
@@ -28,14 +28,14 @@ public class AdminService {
 	private final EventRepository eventRepository;
 	private final EventRewardRepository eventRewardRepository;
 	private final EventWeightRepository eventWeightRepository;
-	private final AdminMapper adminMapper;
+	private final EventMapper eventMapper;
 	private final LotsUserRepository lotsUserRepository;
 	private final ArrivalUserRepository arrivalUserRepository;
 	private final UserMapper userMapper;
 
 	@Transactional
 	public EventListResponseDto getEventList() {
-		return adminMapper.eventListToEventListResponseDto(eventRepository.findAll());
+		return eventMapper.eventListToEventListResponseDto(eventRepository.findAll());
 	}
 
 	@Transactional
@@ -51,7 +51,7 @@ public class AdminService {
 		arrivalEvent.setTagImage(dto.getTagImage());
 
 		eventRepository.save(arrivalEvent);
-		return adminMapper.EventToEventDto(arrivalEvent);
+		return eventMapper.EventToEventDto(arrivalEvent);
 	}
 
 	@Transactional
@@ -67,7 +67,7 @@ public class AdminService {
 		lotsEvent.setTagImage(dto.getTagImage());
 
 		eventRepository.save(lotsEvent);
-		return adminMapper.EventToEventDto(lotsEvent);
+		return eventMapper.EventToEventDto(lotsEvent);
 	}
 
 	@Transactional
