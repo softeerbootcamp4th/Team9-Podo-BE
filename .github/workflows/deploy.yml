@@ -27,6 +27,10 @@ env:
   MYSQL_DB: ${{ secrets.MYSQL_DB }}
   MYSQL_HOST: ${{ secrets.MYSQL_HOST }}
   REDIS_HOST: ${{ secrets.REDIS_HOST }}
+  MYSQL_URL: ${{ secrets.MYSQL_URL }}
+  MYSQL_USERNAME: ${{ secrets.MYSQL_USERNAME }}
+  MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
+
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
