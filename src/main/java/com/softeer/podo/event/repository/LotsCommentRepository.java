@@ -1,6 +1,6 @@
 package com.softeer.podo.event.repository;
 
-import com.softeer.podo.user.model.entity.LotsUser;
+import com.softeer.podo.admin.model.entity.LotsUser;
 import org.springframework.data.jpa.repository.JpaRepository;
 import com.softeer.podo.event.model.entity.LotsComment;
 

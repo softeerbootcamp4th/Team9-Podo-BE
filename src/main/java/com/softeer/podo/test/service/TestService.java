@@ -1,12 +1,12 @@
 package com.softeer.podo.test.service;
 
-import com.softeer.podo.user.model.entity.Role;
+import com.softeer.podo.admin.model.entity.Role;
 import com.softeer.podo.security.jwt.TokenInfo;
 import com.softeer.podo.security.jwt.TokenProvider;
 import com.softeer.podo.test.model.dto.TestSignUpRequestDto;
 import com.softeer.podo.test.model.dto.TestSignUpResponseDto;
 import com.softeer.podo.test.repository.TestUserRepository;
-import com.softeer.podo.user.model.entity.TestUser;
+import com.softeer.podo.admin.model.entity.TestUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
