@@ -1,4 +1,4 @@
-package com.softeer.podo.user.model.entity;
+package com.softeer.podo.admin.model.entity;
 
 import com.softeer.podo.common.entity.DateEntity;
 import com.softeer.podo.event.model.entity.LotsComment;

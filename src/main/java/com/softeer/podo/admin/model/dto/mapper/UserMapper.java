@@ -5,8 +5,8 @@ import com.softeer.podo.admin.model.dto.user.ArrivalUserDto;
 import com.softeer.podo.admin.model.dto.user.ArrivalUserListDto;
 import com.softeer.podo.admin.model.dto.user.LotsUserDto;
 import com.softeer.podo.admin.model.dto.user.LotsUserListDto;
-import com.softeer.podo.user.model.entity.ArrivalUser;
-import com.softeer.podo.user.model.entity.LotsUser;
+import com.softeer.podo.admin.model.entity.ArrivalUser;
+import com.softeer.podo.admin.model.entity.LotsUser;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;

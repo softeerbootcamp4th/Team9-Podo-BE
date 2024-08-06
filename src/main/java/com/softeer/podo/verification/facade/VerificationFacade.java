@@ -2,10 +2,7 @@ package com.softeer.podo.verification.facade;
 
 import com.softeer.podo.security.jwt.TokenInfo;
 import com.softeer.podo.security.jwt.TokenProvider;
-import com.softeer.podo.user.model.dto.UserDto;
-import com.softeer.podo.user.model.entity.Role;
-import com.softeer.podo.user.service.UserService;
-import com.softeer.podo.verification.exception.DuplicatePhoneNumException;
+import com.softeer.podo.admin.model.entity.Role;
 import com.softeer.podo.verification.exception.TokenNotMatchException;
 import com.softeer.podo.verification.model.dto.CheckVerificationRequestDto;
 import com.softeer.podo.verification.model.dto.CheckVerificationResponseDto;
@@ -23,7 +20,6 @@ import org.springframework.transaction.annotation.Transactional;
 public class VerificationFacade {
 
     private final MessageService messageService;
-    private final UserService userService;
     private final VerificationService verificationService;
     private final TokenProvider tokenProvider;
 

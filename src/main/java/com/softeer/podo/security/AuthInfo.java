@@ -1,6 +1,6 @@
 package com.softeer.podo.security;
 
-import com.softeer.podo.user.model.entity.Role;
+import com.softeer.podo.admin.model.entity.Role;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;

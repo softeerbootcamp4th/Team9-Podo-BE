@@ -2,7 +2,7 @@ package com.softeer.podo.event.model.entity;
 
 
 import com.softeer.podo.common.entity.DateEntity;
-import com.softeer.podo.user.model.entity.LotsUser;
+import com.softeer.podo.admin.model.entity.LotsUser;
 import jakarta.persistence.*;
 import lombok.*;
 

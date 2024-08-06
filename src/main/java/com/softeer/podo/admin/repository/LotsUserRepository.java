@@ -1,6 +1,6 @@
-package com.softeer.podo.user.repository;
+package com.softeer.podo.admin.repository;
 
-import com.softeer.podo.user.model.entity.LotsUser;
+import com.softeer.podo.admin.model.entity.LotsUser;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface LotsUserRepository extends JpaRepository<LotsUser, Long> {
