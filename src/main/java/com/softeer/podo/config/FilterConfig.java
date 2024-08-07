@@ -32,7 +32,6 @@ public class FilterConfig {
         registrationBean.setFilter(new ExceptionHandleFilter(objectMapper));
         registrationBean.addUrlPatterns("/test/auth"); // 필터를 적용할 URL 패턴
         registrationBean.addUrlPatterns("/v1/*"); // 필터를 적용할 URL 패턴
-        registrationBean.addUrlPatterns("/admin/*");
         registrationBean.setOrder(1); // 필터의 순서 (숫자가 낮을수록 먼저 실행됨)
         return registrationBean;
     }
