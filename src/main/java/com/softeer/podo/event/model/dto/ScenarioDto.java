@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class SenarioDto {
+public class ScenarioDto {
 	private String title;
 	private String subtitle;
 	private String image;
