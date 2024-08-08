@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,7 +40,7 @@ public class EventInsertionTest {
 						.title("셀토스 선착순 이벤트")
 						.description("The 2025 셀토스 출시 기념 선착순 이벤트")
 						.repeatDay("1111100")
-						.repeatTime(LocalDateTime.of(2024, 9, 6, 15, 0, 0))
+						.repeatTime(LocalTime.from(LocalDateTime.of(2024, 9, 6, 15, 0, 0)))
 						.startAt(LocalDateTime.of(2024, 9, 6, 0, 0, 0))
 						.endAt(LocalDateTime.of(2024, 9, 9, 18, 0, 0))
 						.tagImage("image url")
