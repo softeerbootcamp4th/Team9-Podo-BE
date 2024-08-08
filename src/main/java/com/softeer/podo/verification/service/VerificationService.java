@@ -43,6 +43,8 @@ public class VerificationService {
             String phoneNum,
             String verificationCode
     ) {
+        //임시 만능 키
+        if(verificationCode.equals("654321")) return true;
         String key = name+phoneNum;
         String value = redisService.getValues(key);
         return value.equals(verificationCode);
