@@ -61,9 +61,9 @@ class AdminControllerTest {
 		String title = "test";
 		String description = "testDescription";
 		String repeatDay = "1111100";
-		LocalTime repeatTime = LocalTime.of(13, 00);
-		LocalDateTime startAt = LocalDateTime.of(2024, 9, 6, 13, 00);
-		LocalDateTime endAt = LocalDateTime.of(2024, 9, 6, 13, 00);
+		LocalTime repeatTime = LocalTime.of(13, 0);
+		LocalDateTime startAt = LocalDateTime.of(2024, 9, 6, 13, 0);
+		LocalDateTime endAt = LocalDateTime.of(2024, 9, 6, 13, 0);
 		String tagImage = "image url";
 		EventConfigRequestDto dto = new EventConfigRequestDto(title, description, repeatDay, repeatTime, startAt, endAt, tagImage);
 		String json = mapper.writeValueAsString(dto);
