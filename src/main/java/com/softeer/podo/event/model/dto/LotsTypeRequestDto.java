@@ -1,6 +1,7 @@
 package com.softeer.podo.event.model.dto;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,6 +22,7 @@ public class LotsTypeRequestDto {
     @NotBlank
     private String answer4;
 
+    @JsonIgnore
     public String getSelection(){
         return answer1 + answer2 + answer3 + answer4;
     }
