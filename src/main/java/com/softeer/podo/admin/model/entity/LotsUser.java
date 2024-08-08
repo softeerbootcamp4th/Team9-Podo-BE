@@ -2,6 +2,7 @@ package com.softeer.podo.admin.model.entity;
 
 import com.softeer.podo.common.entity.DateEntity;
 import com.softeer.podo.event.model.entity.LotsComment;
+import com.softeer.podo.event.model.entity.TestResult;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -21,6 +22,11 @@ public class LotsUser extends DateEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
     private Long id;
+
+    @ManyToOne
+    @JoinColumn(name = "result_id")
+    private TestResult testResult;
+
     private String name;
     @Column(name = "phone_number", unique = true)
     private String phoneNum;
@@ -29,4 +35,5 @@ public class LotsUser extends DateEntity {
     private Role role;
     @OneToOne(mappedBy = "lotsUser", orphanRemoval = true, cascade = CascadeType.ALL)
     private LotsComment lotsComment;
+
 }

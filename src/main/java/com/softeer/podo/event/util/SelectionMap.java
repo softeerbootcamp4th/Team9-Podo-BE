@@ -32,10 +32,10 @@ public class SelectionMap {
         selectionMap.put("ABBB", Result.SENS);
         selectionMap.put("BBBA", Result.SENS);
 
-        selectionMap.put("AABA", Result.EARLYADOPTER);
-        selectionMap.put("AABB", Result.EARLYADOPTER);
-        selectionMap.put("BABA", Result.EARLYADOPTER);
-        selectionMap.put("BABB", Result.EARLYADOPTER);
+        selectionMap.put("AABA", Result.EARLY_ADOPTER);
+        selectionMap.put("AABB", Result.EARLY_ADOPTER);
+        selectionMap.put("BABA", Result.EARLY_ADOPTER);
+        selectionMap.put("BABB", Result.EARLY_ADOPTER);
     }
 
 

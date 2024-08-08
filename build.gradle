@@ -28,7 +28,9 @@ repositories {
 }
 
 dependencies {
-    //redis
+    // thymeleaf
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    // redis
     implementation 'org.springframework.boot:spring-boot-starter-data-redis'
     // sms
     implementation 'net.nurigo:sdk:4.2.7'

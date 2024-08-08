@@ -29,6 +29,11 @@ public enum ErrorCode {
     INVALID_SELECTION_ERROR(false, HttpStatus.BAD_REQUEST.value(), "선택지 형식이 잘못되었습니다."),
     USER_NOT_EXIST_ERROR(false, HttpStatus.BAD_REQUEST.value(), "해당 사용자가 아직 이벤트에 응모하지 않았습니다."),
     EXISTING_COMMENT_ERROR(false, HttpStatus.BAD_REQUEST.value(),"이미 기대평을 작성했습니다."),
+    LOTS_LINK_NOT_EXISTS_ERROR(false, HttpStatus.INTERNAL_SERVER_ERROR.value(),"공유 링크가 정상적으로 생성되지 않았습니다."),
+    INVALID_RESULT_TYPE_ERROR(false, HttpStatus.INTERNAL_SERVER_ERROR.value(),"존재하지 않는 드라이버 유형입니다."),
+
+    //etc
+    AES_ENC_DEC_ERROR(false, HttpStatus.INTERNAL_SERVER_ERROR.value(),"공유링크 생성중 오류가 발생했습니다."),
 
     //admin
     EVENT_NOT_FOUND_ERROR(false, HttpStatus.INTERNAL_SERVER_ERROR.value(),"해당 이벤트를 찾을 수 없습니다."),
