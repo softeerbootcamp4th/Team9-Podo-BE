@@ -1,23 +1,15 @@
 package com.softeer.podo.event.model.dto;
 
 
-import com.softeer.podo.event.model.entity.TestResult;
-import com.softeer.podo.event.util.Result;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
-import java.util.List;
-
-@Data
-@AllArgsConstructor
+@Getter
 @NoArgsConstructor
+@AllArgsConstructor
 public class LotsApplicationResponseDto {
-    private Result result;
-
-    private String type; // 유형
-    private String description; // 유형 설명 문구
-    private ArrayList<SenarioDto> senarioList;
+    @NotBlank
+    private String uniqueLink;
 }

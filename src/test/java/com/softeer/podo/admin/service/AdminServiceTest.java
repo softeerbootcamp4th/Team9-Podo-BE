@@ -1,17 +1,13 @@
 package com.softeer.podo.admin.service;
 
 import com.softeer.podo.admin.model.dto.*;
-import com.softeer.podo.admin.model.dto.mapper.UserMapper;
 import com.softeer.podo.admin.model.dto.user.ArrivalUserDto;
 import com.softeer.podo.admin.model.dto.user.ArrivalUserListDto;
 import com.softeer.podo.admin.model.dto.user.LotsUserListDto;
 import com.softeer.podo.admin.model.entity.Event;
 import com.softeer.podo.admin.repository.EventRepository;
 import com.softeer.podo.admin.repository.EventRewardRepository;
-import com.softeer.podo.event.model.dto.LotsApplicationResponseDto;
 import jakarta.transaction.Transactional;
-import org.json.JSONArray;
-import org.json.JSONObject;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
